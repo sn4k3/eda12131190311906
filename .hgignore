@@ -1,0 +1,10 @@
+syntax: glob
+bin/Application.class
+bin/Bubble.class
+bin/Insertion.class
+bin/Maxheap.class
+bin/Merge.class
+bin/Profiler.class
+bin/Quick.class
+bin/Report.class
+bin/SystemHelper.class
