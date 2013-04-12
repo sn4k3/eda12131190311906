@@ -1,6 +1,6 @@
 /**
- * @author Tiago
- *
+ * @author Tiago Conceição
+ * @author Gonçalo Lampreia
  */
 public class Bubble {
 	public static void sort(int A[])

@@ -1,6 +1,6 @@
 /**
- * @author Tiago
- * Aula 4
+ * @author Tiago Conceição
+ * @author Gonçalo Lampreia
  */
 public class Maxheap {
 	int heapsize = 0;

@@ -1,13 +1,9 @@
-/**
- * 
- */
-
 
 import java.util.Random;
 
 /**
- * @author Tiago
- *
+ * @author Tiago Conceição
+ * @author Gonçalo Lampreia
  */
 public class Quick {
 	

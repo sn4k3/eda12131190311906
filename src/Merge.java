@@ -1,6 +1,9 @@
-
 import java.util.Arrays;
 
+/**
+ * @author Tiago Conceição
+ * @author Gonçalo Lampreia
+ */
 
 public class Merge {
 	public static int[] sort(int[] A, int p, int q, int r)

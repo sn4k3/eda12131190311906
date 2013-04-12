@@ -1,10 +1,7 @@
-/**
- * 
- */
 
 /**
- * @author Tiago
- *
+ * @author Tiago Conceição
+ * @author Gonçalo Lampreia
  */
 public class Insertion {
 	public static void sort(int A[])
