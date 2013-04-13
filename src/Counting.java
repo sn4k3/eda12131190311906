@@ -3,6 +3,10 @@
  * @author Gonçalo Lampreia Nº 11906
  */
 public class Counting {
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
 	public static void sort(int[] A) 
 	{
 		int max = A[0], min = A[0];

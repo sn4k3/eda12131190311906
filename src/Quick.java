@@ -5,8 +5,7 @@ import java.util.Random;
  * @author Tiago Conceição Nº 11903
  * @author Gonçalo Lampreia Nº 11906
  */
-public class Quick {
-	
+public class Quick {	
 	/**
 	 * Sort array
 	 * @param A Array

@@ -3,7 +3,6 @@
  * @author Gonçalo Lampreia Nº 11906
  */
 public class Bucket {
-	
 	/**
 	 * Sort array
 	 * @param A Array
