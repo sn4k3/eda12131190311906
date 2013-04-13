@@ -108,6 +108,10 @@ public class Application {
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 		Report reportQuick = Application.runOneAlgorithm("Quick", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
+		Report reportBucket = Application.runOneAlgorithm("Bucket", testArrayCopy);
+		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
+		Report reportCounting = Application.runOneAlgorithm("Counting", testArrayCopy);
+		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 	}
 
 	/**

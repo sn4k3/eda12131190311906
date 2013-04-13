@@ -8,3 +8,5 @@ bin/Profiler.class
 bin/Quick.class
 bin/Report.class
 bin/SystemHelper.class
+bin/Bucket.class
+bin/Counting.class
