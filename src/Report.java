@@ -109,10 +109,19 @@ public class Report {
 	{
 		try
 		{
-			File file = new File(path, this.name+".txt");
+			File file = new File(path, this.name);
 			// Create file 
+			
+			FileWriter fstreamPlot = new FileWriter(file.getPath()+".plt");
+			BufferedWriter outPlot = new BufferedWriter(fstreamPlot);
+			
+			outPlot.write("set title \""+name+" Sort Algorithm\"\n" +
+					"set xlabel \"Execution Number\"\n" +
+					"set ylabel \"Execution Time (ms)\"\n" +
+					"set style fill transparent solid 0.5 noborder\n" +
+					"plot ");
 
-			FileWriter fstream = new FileWriter(file.getPath());
+			FileWriter fstream = new FileWriter(file.getPath()+".txt");
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write("# Relatório do algoritmo " + this.name);
 			out.newLine();
@@ -131,10 +140,23 @@ public class Report {
 			out.newLine();
 			
 			int count = 1;
-			int i = 1;
+			int i = 2;
+			for(String column : this.plotColumns)
+			{
+				outPlot.write("\""+this.name+".txt\" using 1:"+i+" title '"+column+"' with lines");
+				if(this.plotColumns.size() >= i)
+				{
+					outPlot.write(", ");
+				}
+				i++;
+			}
+			outPlot.newLine();
+			i = 1;
 			Collection<Profiler> profilers = this.profilers.values();
+			//for (Map.Entry<String, Profiler> e : this.profilers.entrySet())
 			for(Profiler profiler : profilers)
 			{
+				//Profiler profiler = e.getValue();
 				out.write(count + "\t\t" + String.valueOf(profiler.getExecutionMilliTime()));
 				
 				if(i % this.plotColumns.size() == 0)
@@ -149,6 +171,9 @@ public class Report {
 			//Close the output stream
 			out.close();
 			fstream.close();
+			
+			outPlot.close();
+			fstreamPlot.close();
 		}catch (Exception e){ //Catch exception if any
 			System.err.println("Error: " + e.getMessage());
 		 }

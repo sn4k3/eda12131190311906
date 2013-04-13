@@ -1,10 +1,6 @@
 /**
- * 
- */
-
-/**
- * @author Tiago
- *
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
 public class Selection {
 	/**

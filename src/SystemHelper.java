@@ -1,3 +1,4 @@
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -86,7 +87,7 @@ public class SystemHelper {
 	 */
 	public static int[] randomIntegerArray(int size, int maxValue)
 	{
-		Random rand = new Random();
+		Random rand = new SecureRandom();
 		int A[] = new int[size];
 		for(int i = 0; i < size; i++)
 		{

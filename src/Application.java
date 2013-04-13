@@ -1,9 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author Tiago Conceição Nº 11903
@@ -17,12 +18,17 @@ public class Application {
 	/**
 	 * Where to save reports to load with gnuplot
 	 */
-	public final static String REPORTS_PATH = "Report";
+	public final static String REPORTS_PATH = "Report/plot";
 
 	/**
 	 * Gnuplot executable path
 	 */
 	public static String GNUPLOT_PATH = null;
+	
+	/**
+	 * GNUPLOT Graf generator file
+	 */
+	public static String GNUPLOT_GENERATOR_FILE = "plot_results";
 
 	/**
 	 * Collection of reports
@@ -38,6 +44,7 @@ public class Application {
 	public static void main(String[] args) {
 		Application.Setup();
 		Application.runAlgorithms();
+		Application.generateGnuplotFiles();
 	}
 
 	/**
@@ -48,7 +55,11 @@ public class Application {
 		if (Application.GNUPLOT_PATH == null) {
 			Application.GNUPLOT_PATH = SystemHelper.getProgramFilesX86Path();
 			if (Application.GNUPLOT_PATH != "") {
-				Application.GNUPLOT_PATH += "gnuplot\\bin";
+				Application.GNUPLOT_PATH += "\\gnuplot\\bin\\gnuplot.exe";
+			}
+			else // No windows
+			{
+				Application.GNUPLOT_PATH = "gnuplot";
 			}
 		}
 	}
@@ -112,6 +123,8 @@ public class Application {
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 		Report reportCounting = Application.runOneAlgorithm("Counting", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
+		Report reportComb = Application.runOneAlgorithm("Comb", testArrayCopy);
+		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 		Report reportSelection = Application.runOneAlgorithm("Selection", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 	}
@@ -136,7 +149,7 @@ public class Application {
 
 			Report report = new Report(classname);
 			report.addPlotColumn("Sort");
-			report.addPlotColumn("\t\tSort-sorted");
+			report.addPlotColumn("Sort-sorted");
 			Application.reports.add(report);
 			int count = 1;
 			for(int[] intA : A)
@@ -215,6 +228,57 @@ public class Application {
 	 */
 	public static Report runOneAlgorithm(String classname, int A[]) {
 		return Application.runOneAlgorithm(classname, "sort", A);
+	}
+	
+	private static void generateGnuplotFiles() 
+	{
+		try {
+			File file = new File(Application.REPORTS_PATH, 
+					Application.GNUPLOT_GENERATOR_FILE);
+			
+			if(SystemHelper.isWindows())
+			{
+				FileWriter fstream = new FileWriter(file.getPath()+".bat");
+				BufferedWriter out = new BufferedWriter(fstream);
+				
+				out.write("@echo off\n" +
+						"title \"Relatorio de grafos com GNUPLOT\"\n" +
+						"set GNUPLOT_PATH=\""+Application.GNUPLOT_PATH+"\"\n"+
+						"echo Running Insertion sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Insertion.plt\"\n" +
+						
+						"echo Running Bubble sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Bubble.plt\"\n" +
+						
+						"echo Running Maxheap sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Maxheap.plt\"\n" +
+						
+						"echo Running Merge sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Merge.plt\"\n" +
+						
+						"echo Running Quick sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Quick.plt\"\n" +
+						
+						"echo Running Bucket sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Bucket.plt\"\n" +
+						
+						"echo Running Counting sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Counting.plt\"\n" +
+						
+						"echo Running Comb sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Comb.plt\"\n" +
+						
+						"echo Running Selection sort plot\n"+
+						"%GNUPLOT_PATH% -p \"Selection.plt\"\n" +
+						
+						"pause");
+				
+				out.close();
+				fstream.close();
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 }
