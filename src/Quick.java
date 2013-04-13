@@ -2,11 +2,15 @@
 import java.util.Random;
 
 /**
- * @author Tiago Conceição
- * @author Gonçalo Lampreia
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
 public class Quick {
 	
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
 	public static void sort(int A[], int p, int r)
 	{
 		if(p < r)
@@ -16,7 +20,23 @@ public class Quick {
 			Quick.sort(A, q + 1, r);
 		}
 	}
+	
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
+	public static void sort(int A[])
+	{
+		Quick.sort(A, 0, A.length-1);
+	}
 
+	/**
+	 * Partition array
+	 * @param A Array
+	 * @param p Start index
+	 * @param r End index
+	 * @return Partioned number
+	 */
 	private static int partition(int[] A, int p, int r) {
 		int x = A[r];
 		int i = p - 1;
@@ -38,6 +58,12 @@ public class Quick {
 		return i;
 	}
 	
+	/**
+	 * Randomized sort
+	 * @param A Array
+	 * @param p Start index
+	 * @param r End index
+	 */
 	public static void randomizedSort(int A[], int p, int r)
 	{
 		if(p < r)
@@ -48,6 +74,22 @@ public class Quick {
 		}
 	}
 	
+	/**
+	 * Randomized sort
+	 * @param A Array
+	 */
+	public static void randomizedSort(int A[])
+	{
+		Quick.randomizedSort(A, 0, A.length-1);
+	}
+	
+	/**
+	 * Randomized partition
+	 * @param A Array
+	 * @param p Start index
+	 * @param r End index
+	 * @return Number of randomized partitions
+	 */
 	private static int randomizedPartition(int A[], int p, int r)
 	{
 		int i = new Random().nextInt(r - p) + p;
@@ -57,6 +99,12 @@ public class Quick {
 		return Quick.partition(A, p, r);
 	}
 	
+	/**
+	 * Tail recursive sort
+	 * @param A Array
+	 * @param p Start index
+	 * @param r End index
+	 */
 	public static void tailRecursiveSort(int A[], int p, int r)
 	{
 		while (p < r)
@@ -66,6 +114,15 @@ public class Quick {
 			Quick.tailRecursiveSort(A, p, q - 1);
 			p = q + 1;
 		}
+	}
+	
+	/**
+	 * Tail recursive sort
+	 * @param A Array
+	 */
+	public static void tailRecursiveSort(int A[])
+	{
+		Quick.tailRecursiveSort(A, 0, A.length-1);
 	}
 	
 }

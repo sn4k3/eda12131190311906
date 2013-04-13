@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import com.sun.servicetag.SystemEnvironment;
 
 /**
@@ -5,11 +7,15 @@ import com.sun.servicetag.SystemEnvironment;
  */
 
 /**
- * @author Tiago
- *
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
 public class SystemHelper {
 	
+	/**
+	 * Get program files X86 path, windows only
+	 * @return Program files X86 path
+	 */
 	public static String getProgramFilesX86Path()
 	{
 		if(!SystemHelper.isWindows())
@@ -72,5 +78,23 @@ public class SystemHelper {
 	{
 		String OS = System.getProperty("os.name").toLowerCase();
 		return (OS.indexOf("sunos") >= 0);
+	}
+	
+	/**
+	 * Generate a random integer array
+	 * @param size Size of array
+	 * @param maxValue Max value for random numbers
+	 * @return An array populated with random values
+	 */
+	public static int[] randomIntegerArray(int size, int maxValue)
+	{
+		Random rand = new Random();
+		int A[] = new int[size];
+		for(int i = 0; i < size; i++)
+		{
+			int number = rand.nextInt(maxValue) + 1;
+			A[i] = number;
+		}
+		return A;
 	}
 }

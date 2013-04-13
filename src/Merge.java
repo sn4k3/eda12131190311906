@@ -1,12 +1,18 @@
 import java.util.Arrays;
 
 /**
- * @author Tiago Conceição
- * @author Gonçalo Lampreia
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
-
 public class Merge {
-	public static int[] sort(int[] A, int p, int q, int r)
+	/**
+	 * Sort array
+	 * @param A Array
+	 * @param p Start index
+	 * @param q Middle index
+	 * @param r End index
+	 */
+	public static void sort(int[] A, int p, int q, int r)
 	{
 		int n1 = q - p;
 		int n2 = r - q + 1;
@@ -25,8 +31,6 @@ public class Merge {
 
 		L[n1] = Integer.MAX_VALUE;
 		R[n2] = Integer.MAX_VALUE;
-		System.out.println(Arrays.toString(L));
-		System.out.println(Arrays.toString(R));
 		int i = 0, j = 0;
 		
 		for(int k = p; k <= r; k++)
@@ -42,8 +46,15 @@ public class Merge {
 				j++;
 			}
 		}
-		
-		return A;
+	}
+	
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
+	public static void sort(int[] A)
+	{
+		Merge.sort(A, 0, (int)((A.length-1) / 2), A.length-1);
 	}
 
 }

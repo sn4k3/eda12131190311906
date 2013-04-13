@@ -4,18 +4,19 @@ import java.io.FileWriter;
 import java.util.*;
 
 /**
- * 
- */
-
-/**
- * @author Tiago
- *
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
 public class Report {
 	/**
 	 * Report name
 	 */
 	private String name;
+	
+	/**
+	 * Comments to write on file header
+	 */
+	private List<String> comments;
 	
 	/**
 	 * Collection of profilers
@@ -28,6 +29,7 @@ public class Report {
 	 */
 	public Report(String name) {
 		this.name = name;
+		this.comments = new ArrayList<String>();
 		this.profilers = new HashMap<String, Profiler>();
 	}
 	
@@ -50,17 +52,28 @@ public class Report {
 	/**
 	 * Add a profiler 
 	 * @param name Profiler name
+	 * @param run Start profiling or not
 	 * @return Profiler added to map
 	 */
-	public Profiler addProfiler(String name)
+	public Profiler addProfiler(String name, boolean run)
 	{
 		if(this.profilers.containsKey(name))
 		{
 			return this.profilers.get(name);
 		}
-		Profiler profiler = new Profiler();
+		Profiler profiler = new Profiler(run);
 		this.profilers.put(name, profiler);
 		return profiler;
+	}
+	
+	/**
+	 * Add a profiler 
+	 * @param name Profiler name
+	 * @return Profiler added to map
+	 */
+	public Profiler addProfiler(String name)
+	{
+		return this.addProfiler(name, true);
 	}
 
 	/**
@@ -70,11 +83,14 @@ public class Report {
 	 */
 	public Profiler getProfiler(String name)
 	{
-		if(this.profilers.containsKey(name))
-		{
-			return this.profilers.get(name);
-		}
-		return null;
+		return this.profilers.containsKey(name) 
+				? this.profilers.get(name) 
+				: null;
+	}
+	
+	public void addComment(String text)
+	{
+		this.comments.add(text);
 	}
 	
 	/**
@@ -92,6 +108,11 @@ public class Report {
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write("# Relatório do algoritmo " + this.name);
 			out.newLine();
+			for(String comment : this.comments)
+			{
+				out.write("# " + comment);
+				out.newLine();
+			}
 			out.write("# Tempo de execução (ms)");
 			out.newLine();
 			

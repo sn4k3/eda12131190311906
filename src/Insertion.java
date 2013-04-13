@@ -1,9 +1,12 @@
-
 /**
- * @author Tiago Conceição
- * @author Gonçalo Lampreia
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
 public class Insertion {
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
 	public static void sort(int A[])
 	{
 		for(int j = 0; j < A.length; j++)

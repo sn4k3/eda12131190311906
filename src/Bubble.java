@@ -1,13 +1,17 @@
 /**
- * @author Tiago Conceição
- * @author Gonçalo Lampreia
+ * @author Tiago Conceição Nº 11903
+ * @author Gonçalo Lampreia Nº 11906
  */
 public class Bubble {
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
 	public static void sort(int A[])
 	{
 		for(int i = 0; i < A.length; i++)
 		{
-			for(int j = A.length; j >= i + 1; j--)
+			for(int j = A.length-1; j >= i + 1; j--)
 			{
 				if(A[j] < A[j -1])
 				{
