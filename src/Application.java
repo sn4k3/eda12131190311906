@@ -236,46 +236,45 @@ public class Application {
 			File file = new File(Application.REPORTS_PATH, 
 					Application.GNUPLOT_GENERATOR_FILE);
 			
-			if(SystemHelper.isWindows())
-			{
-				FileWriter fstream = new FileWriter(file.getPath()+".bat");
-				BufferedWriter out = new BufferedWriter(fstream);
-				
-				out.write("@echo off\n" +
-						"title \"Relatorio de grafos com GNUPLOT\"\n" +
-						"set GNUPLOT_PATH=\""+Application.GNUPLOT_PATH+"\"\n"+
-						"echo Running Insertion sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Insertion.plt\"\n" +
-						
-						"echo Running Bubble sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Bubble.plt\"\n" +
-						
-						"echo Running Maxheap sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Maxheap.plt\"\n" +
-						
-						"echo Running Merge sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Merge.plt\"\n" +
-						
-						"echo Running Quick sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Quick.plt\"\n" +
-						
-						"echo Running Bucket sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Bucket.plt\"\n" +
-						
-						"echo Running Counting sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Counting.plt\"\n" +
-						
-						"echo Running Comb sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Comb.plt\"\n" +
-						
-						"echo Running Selection sort plot\n"+
-						"%GNUPLOT_PATH% -p \"Selection.plt\"\n" +
-						
-						"pause");
-				
-				out.close();
-				fstream.close();
-			}
+
+			FileWriter fstream = new FileWriter(file.getPath()+
+					(SystemHelper.isWindows() ? ".bat" : ".sh"));
+			BufferedWriter out = new BufferedWriter(fstream);
+			
+			out.write("@echo off\n" +
+					"title \"Relatorio de grafos com GNUPLOT\"\n" +
+					"set GNUPLOT_PATH=\""+Application.GNUPLOT_PATH+"\"\n"+
+					"echo Running Insertion sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Insertion.plt\"\n" +
+					
+					"echo Running Bubble sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Bubble.plt\"\n" +
+					
+					"echo Running Maxheap sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Maxheap.plt\"\n" +
+					
+					"echo Running Merge sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Merge.plt\"\n" +
+					
+					"echo Running Quick sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Quick.plt\"\n" +
+					
+					"echo Running Bucket sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Bucket.plt\"\n" +
+					
+					"echo Running Counting sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Counting.plt\"\n" +
+					
+					"echo Running Comb sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Comb.plt\"\n" +
+					
+					"echo Running Selection sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Selection.plt\"\n" +
+					
+					"pause");
+			
+			out.close();
+			fstream.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
