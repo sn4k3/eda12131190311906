@@ -23,6 +23,8 @@ public class Report {
 	 */
 	private Map<String, Profiler> profilers;
 	
+	private List<String> plotColumns;
+	
 	/**
 	 * Constructor
 	 * @param name Report name
@@ -31,6 +33,7 @@ public class Report {
 		this.name = name;
 		this.comments = new ArrayList<String>();
 		this.profilers = new HashMap<String, Profiler>();
+		this.plotColumns = new ArrayList<String>();
 	}
 	
 	/**
@@ -93,6 +96,11 @@ public class Report {
 		this.comments.add(text);
 	}
 	
+	public void addPlotColumn(String text)
+	{
+		this.plotColumns.add(text);
+	}
+	
 	/**
 	 * Write reports to a file
 	 * @param path
@@ -108,19 +116,34 @@ public class Report {
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write("# Relatório do algoritmo " + this.name);
 			out.newLine();
+			out.write("# All times are milliseconds (ms)");
+			out.newLine();
 			for(String comment : this.comments)
 			{
 				out.write("# " + comment);
 				out.newLine();
 			}
-			out.write("# Tempo de execução (ms)");
+			out.write("# Nº");
+			for(String column : this.plotColumns)
+			{
+				out.write("\t"+column);
+			}
 			out.newLine();
 			
+			int count = 1;
+			int i = 1;
 			Collection<Profiler> profilers = this.profilers.values();
 			for(Profiler profiler : profilers)
 			{
-				out.write(String.valueOf(profiler.getExecutionMilliTime()));
-				out.newLine();
+				out.write(count + "\t\t" + String.valueOf(profiler.getExecutionMilliTime()));
+				
+				if(i % this.plotColumns.size() == 0)
+				{
+					count++;
+					out.newLine();
+				}
+				
+				i++;
 			}
 			
 			//Close the output stream

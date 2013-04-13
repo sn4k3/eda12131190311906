@@ -1,10 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.sun.servicetag.SystemEnvironment;
-
-/**
- * 
- */
 
 /**
  * @author Tiago Conceição Nº 11903
@@ -96,5 +94,20 @@ public class SystemHelper {
 			A[i] = number;
 		}
 		return A;
+	}
+	
+	/**
+	 * Clone an List<int[]>
+	 * @param list List to clone
+	 * @return Cloned list
+	 */
+	public static List<int[]> cloneListIntArray(List<int[]> list)
+	{
+		List<int[]> newList = new ArrayList<int[]>();
+		for(int[] A : list)
+		{
+			newList.add(A.clone());
+		}
+		return newList;
 	}
 }
