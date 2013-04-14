@@ -2,7 +2,6 @@ syntax: glob
 bin/Application.class
 bin/Bubble.class
 bin/Insertion.class
-bin/Maxheap.class
 bin/Merge.class
 bin/Profiler.class
 bin/Quick.class
@@ -21,8 +20,6 @@ Report/plot/Counting.plt
 Report/plot/Counting.txt
 Report/plot/Insertion.plt
 Report/plot/Insertion.txt
-Report/plot/Maxheap.plt
-Report/plot/Maxheap.txt
 Report/plot/Merge.plt
 Report/plot/Merge.txt
 Report/plot/Quick.plt
@@ -31,3 +28,9 @@ Report/plot/Selection.plt
 Report/plot/Selection.txt
 Report/plot/plot_results.bat
 Report/plot/Comb.txt
+Report/plot/Heap.plt
+Report/plot/Heap.txt
+Report/plot/Shell.plt
+Report/plot/Shell.txt
+bin/Heap.class
+bin/Shell.class

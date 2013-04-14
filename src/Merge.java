@@ -1,4 +1,9 @@
 /**
+ * Merge Sort Algorithm
+ * http://en.wikipedia.org/wiki/Mergesort
+ */
+
+/**
  * @author Tiago Conceição Nº 11903
  * @author Gonçalo Lampreia Nº 11906
  */

@@ -113,7 +113,7 @@ public class Application {
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 		Report reportBubble = Application.runOneAlgorithm("Bubble", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportMaxheap = Application.runOneAlgorithm("Maxheap", testArrayCopy);
+		Report reportHeap = Application.runOneAlgorithm("Heap", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 		Report reportMerge = Application.runOneAlgorithm("Merge", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
@@ -126,6 +126,8 @@ public class Application {
 		Report reportComb = Application.runOneAlgorithm("Comb", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 		Report reportSelection = Application.runOneAlgorithm("Selection", testArrayCopy);
+		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
+		Report reportShell = Application.runOneAlgorithm("Shell", testArrayCopy);
 		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
 	}
 
@@ -250,8 +252,8 @@ public class Application {
 					"echo Running Bubble sort plot\n"+
 					"%GNUPLOT_PATH% -p \"Bubble.plt\"\n" +
 					
-					"echo Running Maxheap sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Maxheap.plt\"\n" +
+					"echo Running Heap sort plot\n"+
+					"%GNUPLOT_PATH% -p \"Heap.plt\"\n" +
 					
 					"echo Running Merge sort plot\n"+
 					"%GNUPLOT_PATH% -p \"Merge.plt\"\n" +

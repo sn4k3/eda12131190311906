@@ -1,4 +1,9 @@
 /**
+ * Counting Sort Algorithm
+ * http://en.wikipedia.org/wiki/Counting_sort
+ */
+
+/**
  * @author Tiago Conceição Nº 11903
  * @author Gonçalo Lampreia Nº 11906
  */

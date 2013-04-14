@@ -1,8 +1,13 @@
 /**
+ * Heap Sort Algorithm
+ * http://en.wikipedia.org/wiki/Heapsort
+ */
+
+/**
  * @author Tiago Conceição Nº 11903
  * @author Gonçalo Lampreia Nº 11906
  */
-public class Maxheap {
+public class Heap {
 	/**
 	 * Heapsize
 	 */
@@ -25,7 +30,7 @@ public class Maxheap {
 	 */
 	private static int right(int i)
 	{
-		return Maxheap.left(i)+1;
+		return Heap.left(i)+1;
 	}
 	
 	/**
@@ -43,18 +48,18 @@ public class Maxheap {
 	 * @param i index
 	 */
 	private static void maxHeapify(int A[], int i){
-		final int l = Maxheap.left(i);
-		final int r = Maxheap.right(i);
+		final int l = Heap.left(i);
+		final int r = Heap.right(i);
 		int largest = 0;
 		
-		if(l < Maxheap.heapsize && A[l] > A[i]){
+		if(l < Heap.heapsize && A[l] > A[i]){
 			largest = l;
 		}
 		else{
 			largest = i;
 		}
 		
-		if(r < Maxheap.heapsize && A[r] > A[largest]){
+		if(r < Heap.heapsize && A[r] > A[largest]){
 			largest = r;
 		}
 		
@@ -62,7 +67,7 @@ public class Maxheap {
 			final int key = A[i];
 			A[i] = A[largest];
 			A[largest] = key;
-			Maxheap.maxHeapify(A, largest);
+			Heap.maxHeapify(A, largest);
 		}
 	}
 	
@@ -76,17 +81,17 @@ public class Maxheap {
 		
 		while(true)
 		{
-			final int l = Maxheap.left(i);
-			final int r = Maxheap.right(i);
+			final int l = Heap.left(i);
+			final int r = Heap.right(i);
 			
-			if(l < Maxheap.heapsize && A[l] > A[i]){
+			if(l < Heap.heapsize && A[l] > A[i]){
 				largest = l;
 			}
 			else{
 				largest = i;
 			}
 			
-			if(r < Maxheap.heapsize && A[r] > A[largest]){
+			if(r < Heap.heapsize && A[r] > A[largest]){
 				largest = r;
 			}
 			
@@ -107,9 +112,9 @@ public class Maxheap {
 	 */
 	private static void buildMaxHeap(int A[])
 	{
-		Maxheap.heapsize = A.length-1;
+		Heap.heapsize = A.length-1;
 		for(int i = (int)Math.floor((A.length-1)/2); i >= 0; i--){
-			Maxheap.maxHeapify(A, i);
+			Heap.maxHeapify(A, i);
 	    }
 	}
 	
@@ -118,14 +123,14 @@ public class Maxheap {
 	 * @param A Array
 	 */
 	public static void sort(int A[]) {
-	    Maxheap.buildMaxHeap(A);
-	    Maxheap.heapsize = A.length-1;
+	    Heap.buildMaxHeap(A);
+	    Heap.heapsize = A.length-1;
 	    for(int i = A.length - 1; i >= 1; i--){
 		  final int key = A[i];
 		  A[i] = A[0];
 		  A[0] = key;
-		  Maxheap.heapsize--;
-		  Maxheap.maxHeapify(A, 0);
+		  Heap.heapsize--;
+		  Heap.maxHeapify(A, 0);
 	    }
 	}	
 }

@@ -1,4 +1,7 @@
-
+/**
+ * Quick Sort Algorithm
+ * http://en.wikipedia.org/wiki/Quicksort
+ */
 import java.util.Random;
 
 /**
