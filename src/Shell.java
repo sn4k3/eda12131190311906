@@ -8,6 +8,10 @@
  * @author Gonçalo Lampreia Nº 11906
  */
 public class Shell {
+	/**
+	 * Sort array
+	 * @param A Array
+	 */
 	public static void sort(int[] A) {
 	    int n = A.length;
 	    int h = n / 2;

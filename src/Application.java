@@ -11,6 +11,16 @@ import java.util.ArrayList;
  * @author Gonçalo Lampreia Nº 11906
  */
 public class Application {
+	public final static String[] ALGORTIHMS = new String[] {"Insertion",
+															"Bubble",
+															"Heap",
+															"Merge",
+															"Quick",
+															"Bucket",
+															"Counting",
+															"Comb",
+															"Selection",
+															"Shell"};
 	/**
 	 * Number of tests to realize with sorting algorithms
 	 */
@@ -108,27 +118,12 @@ public class Application {
 		 * // Big array int B[] = SystemHelper.randomIntegerArray(1000,
 		 * 1000000); int BB[] = B.clone();
 		 */
-
-		Report reportInsertion = Application.runOneAlgorithm("Insertion", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportBubble = Application.runOneAlgorithm("Bubble", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportHeap = Application.runOneAlgorithm("Heap", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportMerge = Application.runOneAlgorithm("Merge", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportQuick = Application.runOneAlgorithm("Quick", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportBucket = Application.runOneAlgorithm("Bucket", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportCounting = Application.runOneAlgorithm("Counting", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportComb = Application.runOneAlgorithm("Comb", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportSelection = Application.runOneAlgorithm("Selection", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
-		Report reportShell = Application.runOneAlgorithm("Shell", testArrayCopy);
-		testArrayCopy = SystemHelper.cloneListIntArray(testArray);
+		
+		for(int i = 0; i < Application.ALGORTIHMS.length; i++)
+		{
+			Report report = Application.runOneAlgorithm(Application.ALGORTIHMS[i], testArrayCopy);
+			testArrayCopy = SystemHelper.cloneListIntArray(testArray);
+		}
 	}
 
 	/**
@@ -168,10 +163,10 @@ public class Application {
 						": "+ 
 						Arrays.toString(intA));
 	
-				profiler = report.addProfiler("Sort-Sorted "+count);
+				Profiler profiler1 = report.addProfiler("Sort-Sorted "+count);
 				Application.reports.add(report);
 				m.invoke(null, intA);
-				profiler.stop();
+				profiler1.stop();
 				report.addComment("Sorted-sorted array "+
 						count+
 						": "+ 
@@ -245,35 +240,13 @@ public class Application {
 			
 			out.write("@echo off\n" +
 					"title \"Relatorio de grafos com GNUPLOT\"\n" +
-					"set GNUPLOT_PATH=\""+Application.GNUPLOT_PATH+"\"\n"+
-					"echo Running Insertion sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Insertion.plt\"\n" +
-					
-					"echo Running Bubble sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Bubble.plt\"\n" +
-					
-					"echo Running Heap sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Heap.plt\"\n" +
-					
-					"echo Running Merge sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Merge.plt\"\n" +
-					
-					"echo Running Quick sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Quick.plt\"\n" +
-					
-					"echo Running Bucket sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Bucket.plt\"\n" +
-					
-					"echo Running Counting sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Counting.plt\"\n" +
-					
-					"echo Running Comb sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Comb.plt\"\n" +
-					
-					"echo Running Selection sort plot\n"+
-					"%GNUPLOT_PATH% -p \"Selection.plt\"\n" +
-					
-					"pause");
+					"set GNUPLOT_PATH=\""+Application.GNUPLOT_PATH+"\"\n");
+			for(int i = 0; i < Application.ALGORTIHMS.length; i++)
+			{
+				out.write("echo Running "+Application.ALGORTIHMS[i]+" sort plot\n"+
+						"%GNUPLOT_PATH% -p \""+Application.ALGORTIHMS[i]+".plt\"\n");
+			}
+			out.write("\npause");
 			
 			out.close();
 			fstream.close();
