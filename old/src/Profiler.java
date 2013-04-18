@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
  * @author Tiago Conceição Nº 11903
  * @author Gonçalo Lampreia Nº 11906
  */

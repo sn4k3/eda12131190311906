@@ -1,0 +1,601 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eda12131190311906</name>
+    </assembly>
+    <members>
+        <member name="T:eda12131190311906.Bubble">
+            <summary>
+            Bubble Sort Algorithm
+            http://en.wikipedia.org/wiki/Bubblesort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Bubble.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Bucket">
+            <summary>
+            Bucket Sort Algorithm
+            http://en.wikipedia.org/wiki/Bucket_sort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Bucket.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Comb">
+            <summary>
+            Comb Sort Algorithm
+            http://en.wikipedia.org/wiki/Comb_sort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Comb.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Counting">
+            <summary>
+            Counting Sort Algorithm
+            http://en.wikipedia.org/wiki/Counting_sort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Counting.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.FrmMain">
+            <summary>
+            Main form / app
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.ButtonClick(System.Object,System.EventArgs)">
+            <summary>
+            Triggerd when any button get clicked
+            </summary>
+            <param name="sender">Object who trigger event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.ObjValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            Triggered when any text change inside a registed component
+            </summary>
+            <param name="sender">Object who trigger event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.BgWorkerDoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Triggered when background worker start the tasks
+            </summary>
+            <param name="sender">Object who trigger event</param>
+            <param name="e">>Event arguments</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.BgWorkerProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <summary>
+            Triggered when background worker change the progress
+            </summary>
+            <param name="sender">Object who trigger event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.BgWorkerRunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <summary>
+            Triggered when background worker finish all tasks
+            </summary>
+            <param name="sender">Object who trigger event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.TmClockTick(System.Object,System.EventArgs)">
+            <summary>
+            Triggered when timer tick
+            </summary>
+            <param name="sender">Object who trigger event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="F:eda12131190311906.FrmMain.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.FrmMain.Stopwatcher">
+            <summary>
+            Background operation timer
+            </summary>
+        </member>
+        <member name="T:eda12131190311906.Heap">
+            <summary>
+            Heap Sort Algorithm
+            http://en.wikipedia.org/wiki/Heapsort
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Heap._heapsize">
+            <summary>
+            Heapsize
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Heap.Left(System.Int32)">
+            <summary>
+            Calculate left
+            </summary>
+            <param name="i">index</param>
+            <returns>Left</returns>
+        </member>
+        <member name="M:eda12131190311906.Heap.Right(System.Int32)">
+            <summary>
+            Calculate right
+            </summary>
+            <param name="i">index</param>
+            <returns>Right</returns>
+        </member>
+        <member name="M:eda12131190311906.Heap.Parent(System.Int32)">
+            <summary>
+            Calculate parent
+            </summary>
+            <param name="i">index</param>
+            <returns>Parent</returns>
+        </member>
+        <member name="M:eda12131190311906.Heap.MaxHeapify(System.Int32[],System.Int32)">
+            <summary>
+            Max heapify, non recursive method
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="i">index</param>
+        </member>
+        <member name="M:eda12131190311906.Heap.MaxHeapifyEx(System.Int32[],System.Int32)">
+            <summary>
+            Max heapify, non recursive method
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="i">index</param>
+        </member>
+        <member name="M:eda12131190311906.Heap.BuildMaxHeap(System.Int32[])">
+            <summary>
+            Build max heap
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="M:eda12131190311906.Heap.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Insertion">
+            <summary>
+            Insertion Sort Algorithm
+            http://en.wikipedia.org/wiki/Insertion_sort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Insertion.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Merge">
+            <summary>
+            Merge Sort Algorithm
+            http://en.wikipedia.org/wiki/Mergesort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Merge.Sort(System.Int32[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="p">Start index</param>
+            <param name="q">Middle index</param>
+            <param name="r">Right index</param>
+        </member>
+        <member name="M:eda12131190311906.Merge.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="F:eda12131190311906.Program.GNUPLOT_GENERATOR_FILE">
+            <summary>
+            GNUPLOT Graf generator file
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.ALGORTIHMS">
+            <summary>
+            All algorithms avaliable to run
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.NUMBER_OF_TESTS">
+            <summary>
+            Number of tests to realize with sorting algorithms
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.REPORTS_PATH">
+            <summary>
+            Where to save reports to load with gnuplot
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.GNUPLOT_PATH">
+            <summary>
+            Gnuplot executable path
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.AUTO_OPEN_PLOT">
+            <summary>
+            Auto open generated plot files (Gnuplot required)
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.ARRAY_INITIAL_SIZE">
+            <summary>
+            Array initial size (First array size)
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Program.ARRAY_GROW_FACTOR">
+            <summary>
+            Array grow factor
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Program.Setup">
+            <summary>
+            Run common tasks to setup the application
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Program.GetReport(System.String)">
+            <summary>
+            Get a report by name
+            </summary>
+            <param name="name"> Report name</param>
+            <returns>Report, null if no exists</returns>
+        </member>
+        <member name="M:eda12131190311906.Program.RunAlgorithms">
+            <summary>
+            Run algorithms, measure execution time and report to a file
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Program.RunOneAlgorithm(System.String,System.String,System.Collections.Generic.List{System.Int32[]})">
+            <summary>
+            Run a algorithm and log execution
+            </summary>
+            <param name="classname">Class name</param>
+            <param name="method">Method name (sort)</param>
+            <param name="A">List with arrays to sort</param>
+            <returns>Report log</returns>
+        </member>
+        <member name="M:eda12131190311906.Program.RunOneAlgorithm(System.String,System.String,System.Int32[])">
+            <summary>
+            Run a algorithm and log execution
+            </summary>
+            <param name="classname">Class name</param>
+            <param name="method">Method name (sort)</param>
+            <param name="A">Array to sort</param>
+            <returns>Report log</returns>
+        </member>
+        <member name="M:eda12131190311906.Program.RunOneAlgorithm(System.String,System.Collections.Generic.List{System.Int32[]})">
+            <summary>
+            Run a algorithm and log execution
+            </summary>
+            <param name="classname">Class name</param>
+            <param name="A">List with arrays to sort</param>
+            <returns>Report log</returns>
+        </member>
+        <member name="M:eda12131190311906.Program.RunOneAlgorithm(System.String,System.Int32[])">
+            <summary>
+            Run a algorithm and log execution
+            </summary>
+            <param name="classname">Class name</param>
+            <param name="A">List with arrays to sort</param>
+            <returns>Report log</returns>
+        </member>
+        <member name="M:eda12131190311906.Program.GenerateGnuplotFiles">
+            <summary>
+            Generate Gnuplot graf files
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Program.Reports">
+            <summary>
+            Collection of reports
+            </summary>
+        </member>
+        <member name="T:eda12131190311906.Quick">
+            <summary>
+            Quick Sort Algorithm
+            http://en.wikipedia.org/wiki/Quicksort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Quick.Sort(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="p">Start index</param>
+            <param name="r">End index</param>
+        </member>
+        <member name="M:eda12131190311906.Quick.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="M:eda12131190311906.Quick.Partition(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            Partition
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="p">Start index</param>
+            <param name="r">End index</param>
+            <returns>Number of randomized partitions</returns>
+        </member>
+        <member name="M:eda12131190311906.Quick.RandomizedSort(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            Randomized sort
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="p">Start index</param>
+            <param name="r">End index</param>
+        </member>
+        <member name="M:eda12131190311906.Quick.RandomizedSort(System.Int32[])">
+            <summary>
+            Randomized sort
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="M:eda12131190311906.Quick.RandomizedPartition(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            Partition
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="p">Start index</param>
+            <param name="r">End index</param>
+            <returns>Number of randomized partitions</returns>
+        </member>
+        <member name="M:eda12131190311906.Quick.TailRecursiveSort(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            Tail recursive sort
+            </summary>
+            <param name="A">Array to sort</param>
+            <param name="p">Start index</param>
+            <param name="r">End index</param>
+        </member>
+        <member name="M:eda12131190311906.Quick.TailRecursiveSort(System.Int32[])">
+            <summary>
+            Tail recursive sort
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Report">
+            <summary>
+            Report algorithm execution to file and grafs
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Report._profilers">
+            <summary>
+            Collection of profilers
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Report.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="name">Report name</param>
+        </member>
+        <member name="M:eda12131190311906.Report.AddProfiler(System.String,System.Diagnostics.Stopwatch)">
+            <summary>
+            Add a profiler
+            </summary>
+            <param name="name">Profiler name</param>
+            <param name="profiler">Profiler to add</param>
+            <returns>True if added, otherwise false (Duplicated name)</returns>
+        </member>
+        <member name="M:eda12131190311906.Report.AddProfiler(System.String,System.Boolean)">
+            <summary>
+            Add a profiler
+            </summary>
+            <param name="name">Profiler name</param>
+            <param name="run">Start profiling or not</param>
+            <returns>Profiler added to map</returns>
+        </member>
+        <member name="M:eda12131190311906.Report.AddProfiler(System.String)">
+            <summary>
+            Add a profiler 
+            </summary>
+            <param name="name">Profiler name</param>
+            <returns>Profiler added to map</returns>
+        </member>
+        <member name="M:eda12131190311906.Report.GetProfiler(System.String)">
+            <summary>
+            Get a profiler
+            </summary>
+            <param name="name">Profiler name</param>
+            <returns>Profiler, null if not exists</returns>
+        </member>
+        <member name="M:eda12131190311906.Report.WriteToFile(System.String)">
+            <summary>
+            Write reports to a file
+            </summary>
+            <param name="path">Path to save the file</param>
+        </member>
+        <member name="M:eda12131190311906.Report.WriteToFile">
+            <summary>
+            Write reports to a file
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.Name">
+            <summary>
+            Report name
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.Comments">
+            <summary>
+            Comments to write on file header
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.PlotColumns">
+            <summary>
+            Plot columns text
+            </summary>
+        </member>
+        <member name="T:eda12131190311906.Selection">
+            <summary>
+            Selection Sort Algorithm
+            http://en.wikipedia.org/wiki/Selection_sort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Selection.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.Shell">
+            <summary>
+            Shell Sort Algorithm
+            http://en.wikipedia.org/wiki/Shell_sort
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Shell.Sort(System.Int32[])">
+            <summary>
+            Sort an array
+            </summary>
+            <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.SystemHelper">
+            <summary>
+            System Helper Utilities
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.GetProgramFilesX86Path">
+            <summary>
+            Get program files X86 path, windows only
+            </summary>
+            <returns>Program files X86 path</returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.IsWindows">
+            <summary>
+            Is windows OS
+            </summary>
+            <returns>True if Windows, otherwise false</returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.IsUnix">
+            <summary>
+            Is UNIX OS
+            </summary>
+            <returns>True if Unix, otherwise false</returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.RandomIntegerArray(System.Int32,System.Int32)">
+            <summary>
+            Generate a random integer array
+            </summary>
+            <param name="size">Size of array</param>
+            <param name="maxValue">Max value for random numbers</param>
+            <returns>An array populated with random values</returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.RandomIntegerArray(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Generate a random integer array
+            </summary>
+            <param name="size">Size of array</param>
+            <param name="minValue">Min value for random numbers</param>
+            <param name="maxValue">Max value for random numbers</param>
+            <returns>An array populated with random values</returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.CloneListIntArray(System.Collections.Generic.List{System.Int32[]})">
+            <summary>
+            Clone an List int[]
+            </summary>
+            <param name="list">list List to clone</param>
+            <returns>Cloned list</returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.ArrayToString``1(``0[])">
+            <summary>
+            Convert an array to string
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eda12131190311906.SystemHelper.OpenLink(System.String)">
+            <summary>
+            Open website link
+            </summary>
+            <param name="address">URL address</param>
+        </member>
+        <member name="T:eda12131190311906.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.deselect">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.open_file">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.pause">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.play">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.select_all">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.select_inverse">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.stop">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -97,13 +97,15 @@ public class Application {
 		// Create a list with multiple arrays holding random numbers
 		List<int[]> testArray = new ArrayList<int[]>(
 				Application.NUMBER_OF_TESTS);
+		int size = 10;
 		for (int i = 1; i <= Application.NUMBER_OF_TESTS; i++) {
-			int size = (int) Math.min(i * 10L * ((i - 1) * 2L),
-					Integer.MAX_VALUE);
+			/*int size = (int) Math.min(i * 10L * ((i - 1) * 50L),
+					Integer.MAX_VALUE);*/
+			size = Math.min(size*2,	Integer.MAX_VALUE);
 			if (size == 0) {
 				size = i * 10;
 			}
-			int maxvalue = (int) Math.min(size * 25, Integer.MAX_VALUE);
+			int maxvalue = (int) Math.min(size * 5, Integer.MAX_VALUE);
 			if (maxvalue == 0) {
 				maxvalue = i * 50;
 			}
@@ -154,7 +156,6 @@ public class Application {
 				report.addComment("");
 				report.addComment("Array("+intA.length+") "+count+": " + Arrays.toString(intA));
 				
-	
 				Profiler profiler = report.addProfiler("Sort "+count);
 				m.invoke(null, intA);
 				profiler.stop();
