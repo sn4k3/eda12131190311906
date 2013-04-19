@@ -6,8 +6,10 @@
  */
 
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace eda12131190311906
@@ -118,17 +120,29 @@ namespace eda12131190311906
                 if (!IsUnix())
                 {
                     // Use Microsoft's way of opening sites
-                    Process.Start(address);
+                    using(Process.Start(address))
+                    {}
                 }
                 else
                 {
                     // We're on Unix, try gnome-open (used by GNOME), then open
                     // (used my MacOS), then Firefox or Konqueror browsers (our last
                     // hope).
-                    string cmdline = string.Format("gnome-open {0} || open {0} || " +
-                        " chrome {0} || firefox {0} || mozilla-firefox {0} || konqueror {0}", address);
-                    Process proc = Process.Start(cmdline);
-                    proc.Dispose();
+                    string cmdline = string.Format("xdg-open {0} || gnome-open {0} || open {0} || " +
+                        "chromium-browser {0} || mozilla-firefox {0} || firefox {0} || konqueror {0}", address);
+                    using (TextWriter textWriter = new StreamWriter("tempopenlink.sh"))
+                    {
+                        textWriter.WriteLine(cmdline);
+                        textWriter.WriteLine("rm -f tempopenlink.sh");
+                        textWriter.Close();
+                    }
+                    using (Process proc = new Process())
+                    {
+                        proc.StartInfo.FileName = "sh";
+                        proc.StartInfo.Arguments = "tempopenlink.sh";
+                        proc.Start();
+                        proc.Close();
+                    }
                 }
             }
             catch (Exception e)

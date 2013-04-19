@@ -61,7 +61,10 @@ namespace eda12131190311906
 
             tbGnuplotExecutable.Text = Program.GNUPLOT_PATH;
             nmNumberOfTests.Value = Program.NUMBER_OF_TESTS;
+            nmArrayInitialSize.Value = Program.ARRAY_INITIAL_SIZE;
+            nmArrayGrowFactor.Value = Convert.ToDecimal(Program.ARRAY_GROW_FACTOR);
             tbSaveReportsTo.Text = Program.REPORTS_PATH;
+            cbAutoOpenPlots.Checked = Program.AUTO_OPEN_PLOT;
         }
 
         /// <summary>
@@ -100,11 +103,14 @@ namespace eda12131190311906
             {
                 using (var openDialog = new OpenFileDialog())
                 {
+                    string workingDir = SystemHelper.IsWindows()
+                                            ? Path.GetDirectoryName(Program.GNUPLOT_PATH)
+                                            : (Program.GNUPLOT_PATH.Equals("gnuplot") ? "/usr/bin" : Path.GetDirectoryName(Program.GNUPLOT_PATH));
                     openDialog.CheckFileExists = true;
                     openDialog.AddExtension = false;
                     openDialog.CheckPathExists = true;
                     openDialog.RestoreDirectory = true;
-                    openDialog.InitialDirectory = Path.GetDirectoryName(Program.GNUPLOT_PATH);
+                    openDialog.InitialDirectory = workingDir;
                     openDialog.FileName = (SystemHelper.IsWindows() ? "wgnuplot.exe" : "gnuplot");
                     openDialog.Filter = SystemHelper.IsWindows() ? "Gnuplot windows executable (wgnuplot.exe)|wgnuplot.exe" : "Gnuplot executable (gnuplot*)|gnuplot*";
                     if (openDialog.ShowDialog() == DialogResult.OK)
@@ -118,7 +124,7 @@ namespace eda12131190311906
             {
                 using (var folderDialog = new FolderBrowserDialog())
                 {
-                    folderDialog.Description = "Folder to save all reports and algorithm work";
+                    folderDialog.Description = @"Folder to save all reports and algorithm work";
                     if (folderDialog.ShowDialog() == DialogResult.OK)
                     {
                         tbSaveReportsTo.Text = folderDialog.SelectedPath;
@@ -139,10 +145,11 @@ namespace eda12131190311906
                 {
                     return;
                 }
+                gbOptions.Enabled = false;
                 btnStart.Enabled = false;
                 btnStop.Enabled = btnPause.Enabled = true;
                 pbLoad.Value = 0;
-                pbLoad.Text = "Starting";
+                pbLoad.Text = @"Starting";
                 Stopwatcher.Start();
                 tmClock.Start();
                 bgWorker.RunWorkerAsync();
@@ -163,14 +170,14 @@ namespace eda12131190311906
                 }
                 if (
                     MessageBox.Show("Have you sure you want stop current work?\nAfter stop there are no backwards", 
-                                    "Cancellation",
+                                    @"Cancellation",
                                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
                 {
                     return;
                 }
                 bgWorker.CancelAsync();
                 btnPause.Enabled = btnStop.Enabled = false;
-                lbStatus.Text += " -> Cancel Requested -> Waiting for finish";
+                lbStatus.Text += @" -> Cancel Requested -> Waiting for finish";
             }
         }
 
@@ -258,7 +265,7 @@ namespace eda12131190311906
                         Thread.Sleep(1000);
                     }
                     string name = cblAlgorithms.CheckedItems[i].ToString();
-                    bgWorker.ReportProgress(i * 100 / cblAlgorithms.CheckedItems.Count, string.Format("Executing {0}/{1} {2}", (i+1), cblAlgorithms.CheckedItems.Count, name));
+                    bgWorker.ReportProgress(i * 100 / cblAlgorithms.CheckedItems.Count + 2, string.Format("Executing {0}/{1} {2}", (i+1), cblAlgorithms.CheckedItems.Count, name));
                     Report report = Program.RunOneAlgorithm(name, testArrayCopy);
                     testArrayCopy = SystemHelper.CloneListIntArray(testArray);
                 }
@@ -303,16 +310,17 @@ namespace eda12131190311906
         /// <param name="e">Event arguments</param>
         private void BgWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            gbOptions.Enabled = true;
             btnStart.Enabled = true;
             btnStop.Enabled = btnPause.Enabled = false;
-            btnPause.Text = "Pause";
+            btnPause.Text = @"Pause";
             pbLoad.Value = 100;
             Stopwatcher.Stop();
             tmClock.Stop();
             TmClockTick(null, null);
             if (e.Cancelled)
             {
-                lbStatus.Text += " -> Cancelled";
+                lbStatus.Text += @" -> Cancelled";
             }
         }
 
@@ -326,11 +334,11 @@ namespace eda12131190311906
             lbTimeElapsed.Text = string.Format("Time Elapsed: {0:0.##}s", Stopwatcher.Elapsed.TotalSeconds);
             if (btnPause.Text.Equals("Resume"))
             {
-                lbTimeElapsed.Text += " (Paused)";
+                lbTimeElapsed.Text += @" (Paused)";
             }
             if (!tmClock.Enabled)
             {
-                lbTimeElapsed.Text += " (Done)";
+                lbTimeElapsed.Text += @" (Done)";
             }
         }
 

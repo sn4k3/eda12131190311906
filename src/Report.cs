@@ -182,10 +182,11 @@ namespace eda12131190311906
                 {
                     using (var proc = new Process())
                     {
-                        proc.StartInfo.CreateNoWindow = true;
+                        //proc.StartInfo.CreateNoWindow = true;
                         proc.StartInfo.WorkingDirectory = Program.REPORTS_PATH;
                         proc.StartInfo.FileName = Program.GNUPLOT_PATH;
                         proc.StartInfo.Arguments = string.Format("\"{0}.plt\"", Name);
+                        proc.StartInfo.UseShellExecute = false;
                         proc.Start();
                         proc.Close();
                     }

@@ -18,7 +18,7 @@ namespace eda12131190311906
     /// </summary>
     static class Program
     {
-        public const string PROJECT_URL = "https://code.google.com/p/eda12131190311906/";
+        public const string PROJECT_URL = "https://code.google.com/p/eda12131190311906";
         /// <summary>
         /// All algorithms avaliable to run
         /// </summary>
@@ -40,7 +40,7 @@ namespace eda12131190311906
         /// <summary>
         /// Where to save reports to load with gnuplot
         /// </summary>
-        public static string REPORTS_PATH = "Report/plot";
+        public static string REPORTS_PATH = "report/plot";
 
         /// <summary>
         /// Gnuplot executable path
@@ -60,7 +60,7 @@ namespace eda12131190311906
         /// <summary>
         /// Array initial size (First array size)
         /// </summary>
-        public static int ARRAY_INITIAL_SIZE = 15;
+        public static int ARRAY_INITIAL_SIZE = 2;
 
         /// <summary>
         /// Array grow factor
