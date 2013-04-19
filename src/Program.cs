@@ -1,6 +1,11 @@
-﻿using System;
+﻿/**
+ * Estruturas de Dados e Algoritmos (EDA) - Project I
+ * Tiago Conceição Nº 11903
+ * Gonçalo Lampreia Nº 11906
+ * https://code.google.com/p/eda12131190311906/
+ */
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +13,9 @@ using System.Windows.Forms;
 
 namespace eda12131190311906
 {
+    /// <summary>
+    /// Main program
+    /// </summary>
     static class Program
     {
         public const string PROJECT_URL = "https://code.google.com/p/eda12131190311906/";

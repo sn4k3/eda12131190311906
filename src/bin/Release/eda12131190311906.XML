@@ -217,6 +217,11 @@
             </summary>
             <param name="A">Array to sort</param>
         </member>
+        <member name="T:eda12131190311906.Program">
+            <summary>
+            Main program
+            </summary>
+        </member>
         <member name="F:eda12131190311906.Program.GNUPLOT_GENERATOR_FILE">
             <summary>
             GNUPLOT Graf generator file

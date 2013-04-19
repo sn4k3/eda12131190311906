@@ -1,6 +1,8 @@
 /**
- * @author Tiago Conceição Nº 11903
- * @author Gonçalo Lampreia Nº 11906
+ * Estruturas de Dados e Algoritmos (EDA) - Project I
+ * Tiago Conceição Nº 11903
+ * Gonçalo Lampreia Nº 11906
+ * https://code.google.com/p/eda12131190311906/
  */
 
 using System;
