@@ -22,6 +22,8 @@ namespace eda12131190311906
         /// <param name="r">End index</param>
         public static void Sort(int[] A, int p, int r)
         {
+            //TailRecursiveSort(A, p, r);
+            //return;
             if (p >= r) return;
 
             int q = Partition(A, p, r);

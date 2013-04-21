@@ -77,7 +77,7 @@ namespace eda12131190311906
             {
                 return _profilers[name];
             }
-            Stopwatch profiler = new Stopwatch();
+            var profiler = new Stopwatch();
             _profilers.Add(name, profiler);
             if (run)
             {
@@ -116,12 +116,12 @@ namespace eda12131190311906
         {
             try
             {
-                if (!Directory.Exists(Program.REPORTS_PATH))
+                if (!Directory.Exists(path))
                 {
-                    Directory.CreateDirectory(Program.REPORTS_PATH);
+                    Directory.CreateDirectory(path);
                 }
                 // Create file 
-                TextWriter fstreamPlot = new StreamWriter(Path.Combine(Program.REPORTS_PATH, Name) + ".plt");
+                TextWriter fstreamPlot = new StreamWriter(Path.Combine(path, Name) + ".plt");
 			
                 fstreamPlot.Write("set title \""+Name+" Sort Algorithm\"\n" +
                                   "set xlabel \"Execution Number\"\n" +
@@ -129,7 +129,7 @@ namespace eda12131190311906
                                   "set style fill transparent solid 0.5 noborder\n" +
                                   "plot ");
 
-                TextWriter fstream = new StreamWriter(Path.Combine(Program.REPORTS_PATH, Name) + ".txt");
+                TextWriter fstream = new StreamWriter(Path.Combine(path, Name) + ".txt");
                 fstream.WriteLine("# Relatório do algoritmo " + Name);
                 fstream.WriteLine("# All times are milliseconds (ms)");
                 foreach(string comment in Comments)
@@ -147,7 +147,7 @@ namespace eda12131190311906
                 int i = 2;
                 foreach(string column in PlotColumns)
                 {
-                    fstreamPlot.Write("\""+Name+".txt\" using 1:"+i+" title '"+column+"' with lines");
+                    fstreamPlot.Write("\"{0}.txt\" using 1:{1} title '{2}' with lines", Name, i, column);
                     if(PlotColumns.Count >= i)
                     {
                         fstreamPlot.Write(", ");
@@ -155,7 +155,7 @@ namespace eda12131190311906
                     i++;
                 }
                 fstreamPlot.WriteLine();
-                fstreamPlot.WriteLine("pause -1");
+                //fstreamPlot.WriteLine("pause -1");
                 i = 1;
 
 
@@ -163,7 +163,7 @@ namespace eda12131190311906
                 foreach(var profiler in _profilers)
                 {
                     //Profiler profiler = e.getValue();
-                    fstream.Write("{0}\t\t{1}", count, profiler.Value.ElapsedMilliseconds);
+                    fstream.Write("{0}\t\t{1}", count, profiler.Value.ElapsedTicks / 10000D);
 				
                     if(i % PlotColumns.Count == 0)
                     {
@@ -178,14 +178,14 @@ namespace eda12131190311906
                 fstream.Close();
                 fstreamPlot.Close();
 
-                if (Program.AUTO_OPEN_PLOT)
+                if (ApplicationSettings.Instance.AutoOpenPlot)
                 {
                     using (var proc = new Process())
                     {
                         //proc.StartInfo.CreateNoWindow = true;
-                        proc.StartInfo.WorkingDirectory = Program.REPORTS_PATH;
-                        proc.StartInfo.FileName = Program.GNUPLOT_PATH;
-                        proc.StartInfo.Arguments = string.Format("\"{0}.plt\"", Name);
+                        proc.StartInfo.WorkingDirectory = path;
+                        proc.StartInfo.FileName = ApplicationSettings.Instance.GnuplotFullPath;
+                        proc.StartInfo.Arguments = string.Format("-p \"{0}.plt\"", Name);
                         proc.StartInfo.UseShellExecute = false;
                         proc.Start();
                         proc.Close();
@@ -193,7 +193,7 @@ namespace eda12131190311906
                    
                 }
             }catch (Exception e){ //Catch exception if any
-                MessageBox.Show(@"Error: " + e.Message);
+                MessageBox.Show(string.Format(@"Error: {0}", e.Message));
             }
         }
 	
@@ -202,7 +202,7 @@ namespace eda12131190311906
         /// </summary>
         public void WriteToFile()
         {
-            WriteToFile(Program.REPORTS_PATH);
+            WriteToFile(ApplicationSettings.Instance.ReportsPath);
         }
     }
 }

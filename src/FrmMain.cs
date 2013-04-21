@@ -59,12 +59,16 @@ namespace eda12131190311906
                 cblAlgorithms.EndUpdate();
             }
 
-            tbGnuplotExecutable.Text = Program.GNUPLOT_PATH;
-            nmNumberOfTests.Value = Program.NUMBER_OF_TESTS;
-            nmArrayInitialSize.Value = Program.ARRAY_INITIAL_SIZE;
-            nmArrayGrowFactor.Value = Convert.ToDecimal(Program.ARRAY_GROW_FACTOR);
-            tbSaveReportsTo.Text = Program.REPORTS_PATH;
-            cbAutoOpenPlots.Checked = Program.AUTO_OPEN_PLOT;
+            tbGnuplotExecutable.Text = ApplicationSettings.Instance.GnuplotFullPath;
+            tbSaveReportsTo.Text = ApplicationSettings.Instance.ReportsPath;
+            cbAutoOpenPlots.Checked = ApplicationSettings.Instance.AutoOpenPlot;
+            nmNumberOfTests.Value = ApplicationSettings.Instance.NumberOfTests;
+            nmArrayInitialSize.Value = ApplicationSettings.Instance.ArrayInitialSize;
+            nmArrayGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayGrowFactor);
+            nmArrayMinRandomNumber.Value = ApplicationSettings.Instance.ArrayMinRandomNumber;
+            nmArrayMaxRandomNumber.Value = ApplicationSettings.Instance.ArrayMaxRandomNumber;
+            nmArrayNumberGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayNumberGrowFactor);
+            cbArrayRandomBetweenValues.Checked = ApplicationSettings.Instance.ArrayRandomBetweenValues;
         }
 
         /// <summary>
@@ -104,8 +108,8 @@ namespace eda12131190311906
                 using (var openDialog = new OpenFileDialog())
                 {
                     string workingDir = SystemHelper.IsWindows()
-                                            ? Path.GetDirectoryName(Program.GNUPLOT_PATH)
-                                            : (Program.GNUPLOT_PATH.Equals("gnuplot") ? "/usr/bin" : Path.GetDirectoryName(Program.GNUPLOT_PATH));
+                                            ? Path.GetDirectoryName(ApplicationSettings.Instance.GnuplotFullPath)
+                                            : (ApplicationSettings.Instance.GnuplotFullPath.Equals("gnuplot") ? "/usr/bin" : Path.GetDirectoryName(ApplicationSettings.Instance.GnuplotFullPath));
                     openDialog.CheckFileExists = true;
                     openDialog.AddExtension = false;
                     openDialog.CheckPathExists = true;
@@ -115,7 +119,7 @@ namespace eda12131190311906
                     openDialog.Filter = SystemHelper.IsWindows() ? "Gnuplot windows executable (wgnuplot.exe)|wgnuplot.exe" : "Gnuplot executable (gnuplot*)|gnuplot*";
                     if (openDialog.ShowDialog() == DialogResult.OK)
                     {
-                        tbGnuplotExecutable.Text = openDialog.FileName;
+                        ApplicationSettings.Instance.GnuplotFullPath = tbGnuplotExecutable.Text = openDialog.FileName;
                     }
                 }
                 return;
@@ -125,9 +129,16 @@ namespace eda12131190311906
                 using (var folderDialog = new FolderBrowserDialog())
                 {
                     folderDialog.Description = @"Folder to save all reports and algorithm work";
+                    folderDialog.SelectedPath = Application.StartupPath;
                     if (folderDialog.ShowDialog() == DialogResult.OK)
                     {
-                        tbSaveReportsTo.Text = folderDialog.SelectedPath;
+                        // Absolute to partial path convertion
+                        string path = folderDialog.SelectedPath.Replace(Application.StartupPath, string.Empty);
+                        if (!string.IsNullOrEmpty(path) && path.Substring(0, 1) == Path.DirectorySeparatorChar.ToString(CultureInfo.InvariantCulture))
+                        {
+                            path = path.Remove(0, 1);
+                        }
+                        ApplicationSettings.Instance.ReportsPath = tbSaveReportsTo.Text = path;
                     }
                 }
                 return;
@@ -135,7 +146,14 @@ namespace eda12131190311906
 
             if (sender == cbAutoOpenPlots)
             {
-                Program.AUTO_OPEN_PLOT = cbAutoOpenPlots.Checked;
+                ApplicationSettings.Instance.AutoOpenPlot = cbAutoOpenPlots.Checked;
+                return;
+            }
+            if (sender == cbArrayRandomBetweenValues)
+            {
+                ApplicationSettings.Instance.ArrayRandomBetweenValues = cbArrayRandomBetweenValues.Checked;
+                nmArrayMaxRandomNumber.Enabled = cbArrayRandomBetweenValues.Checked;
+                nmArrayNumberGrowFactor.Enabled = !cbArrayRandomBetweenValues.Checked;
                 return;
             }
 
@@ -150,6 +168,7 @@ namespace eda12131190311906
                 btnStop.Enabled = btnPause.Enabled = true;
                 pbLoad.Value = 0;
                 pbLoad.Text = @"Starting";
+                Stopwatcher.Reset();
                 Stopwatcher.Start();
                 tmClock.Start();
                 bgWorker.RunWorkerAsync();
@@ -177,6 +196,7 @@ namespace eda12131190311906
                 }
                 bgWorker.CancelAsync();
                 btnPause.Enabled = btnStop.Enabled = false;
+                btnPause.Text = "Pause";
                 lbStatus.Text += @" -> Cancel Requested -> Waiting for finish";
             }
         }
@@ -190,12 +210,12 @@ namespace eda12131190311906
         {
             if (sender == tbGnuplotExecutable)
             {
-                Program.GNUPLOT_PATH = tbGnuplotExecutable.Text;
+                ApplicationSettings.Instance.GnuplotFullPath = tbGnuplotExecutable.Text;
                 return;
             }
             if (sender == tbSaveReportsTo)
             {
-                Program.REPORTS_PATH = tbSaveReportsTo.Text;
+                ApplicationSettings.Instance.ReportsPath = tbSaveReportsTo.Text;
                 return;
             }
             if (sender == nmNumberOfTests)
@@ -203,7 +223,7 @@ namespace eda12131190311906
                 byte number;
                 if (byte.TryParse(nmNumberOfTests.Value.ToString(CultureInfo.InvariantCulture), out number))
                 {
-                    Program.NUMBER_OF_TESTS = number;
+                    ApplicationSettings.Instance.NumberOfTests = number;
                 }
                 return;
             }
@@ -212,7 +232,7 @@ namespace eda12131190311906
                 int number;
                 if (int.TryParse(nmArrayInitialSize.Value.ToString(CultureInfo.InvariantCulture), out number))
                 {
-                    Program.ARRAY_INITIAL_SIZE = number;
+                    ApplicationSettings.Instance.ArrayInitialSize = number;
                 }
                 return;
             }
@@ -221,7 +241,34 @@ namespace eda12131190311906
                 double number;
                 if (double.TryParse(nmArrayGrowFactor.Value.ToString(CultureInfo.InvariantCulture), out number))
                 {
-                    Program.ARRAY_GROW_FACTOR = number;
+                    ApplicationSettings.Instance.ArrayGrowFactor = number;
+                }
+                return;
+            }
+            if (sender == nmArrayMinRandomNumber)
+            {
+                int number;
+                if (int.TryParse(nmArrayMinRandomNumber.Value.ToString(CultureInfo.InvariantCulture), out number))
+                {
+                    ApplicationSettings.Instance.ArrayMinRandomNumber = number;
+                }
+                return;
+            }
+            if (sender == nmArrayMaxRandomNumber)
+            {
+                int number;
+                if (int.TryParse(nmArrayMaxRandomNumber.Value.ToString(CultureInfo.InvariantCulture), out number))
+                {
+                    ApplicationSettings.Instance.ArrayMaxRandomNumber = number;
+                }
+                return;
+            }
+            if (sender == nmArrayNumberGrowFactor)
+            {
+                double number;
+                if (double.TryParse(nmArrayNumberGrowFactor.Value.ToString(CultureInfo.InvariantCulture), out number))
+                {
+                    ApplicationSettings.Instance.ArrayNumberGrowFactor = number;
                 }
                 return;
             }
@@ -237,21 +284,26 @@ namespace eda12131190311906
             try
             {
                 bgWorker.ReportProgress(1, "Generating arrays");
-                var testArray = new List<int[]>(Program.NUMBER_OF_TESTS);
-                double size = Program.ARRAY_INITIAL_SIZE;
-                for (int i = 1; i <= Program.NUMBER_OF_TESTS; i++)
+                var testArray = new List<int[]>(ApplicationSettings.Instance.NumberOfTests);
+                double size = ApplicationSettings.Instance.ArrayInitialSize;
+                int minvalue = Math.Max(100, ApplicationSettings.Instance.ArrayMinRandomNumber);  
+                double maxvalue = ApplicationSettings.Instance.ArrayRandomBetweenValues
+                                      ? Math.Min(ApplicationSettings.Instance.ArrayMaxRandomNumber, int.MaxValue)
+                                      : minvalue;
+
+                for (int i = 1; i <= ApplicationSettings.Instance.NumberOfTests; i++)
                 {
-                    size *= Program.ARRAY_GROW_FACTOR;
                     if (size <= 0)
                     {
                         size = i * 10;
                     }
-                    int maxvalue = Math.Min((int)(size * 5), int.MaxValue);
-                    if (maxvalue == 0)
+                                     
+                    testArray.Add(SystemHelper.RandomIntegerArray(Convert.ToInt32(size), minvalue, Convert.ToInt32(maxvalue)));
+                    size *= ApplicationSettings.Instance.ArrayGrowFactor;
+                    if (!ApplicationSettings.Instance.ArrayRandomBetweenValues)
                     {
-                        maxvalue = i * 50;
+                        maxvalue *= ApplicationSettings.Instance.ArrayNumberGrowFactor;
                     }
-                    testArray.Add(SystemHelper.RandomIntegerArray((int)size, maxvalue));
                 }
                 var testArrayCopy = SystemHelper.CloneListIntArray(testArray);
                 for (int i = 0; i < cblAlgorithms.CheckedItems.Count; i++)

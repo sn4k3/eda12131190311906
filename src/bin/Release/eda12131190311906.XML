@@ -4,6 +4,108 @@
         <name>eda12131190311906</name>
     </assembly>
     <members>
+        <member name="T:eda12131190311906.ApplicationSettings">
+            <summary>
+            Application settings
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.ApplicationSettings.Filename">
+            <summary>
+            Default filename to save application settings
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.ApplicationSettings.Serial">
+            <summary>
+            Class serializer
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.ApplicationSettings._instance">
+            <summary>
+            Settings instance
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.ApplicationSettings.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.ApplicationSettings.Reload(System.String)">
+            <summary>
+            Save settings to file
+            </summary>
+            <param name="filename">File to save settings</param>
+        </member>
+        <member name="M:eda12131190311906.ApplicationSettings.Reload">
+            <summary>
+            Reload settings from default file
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.ApplicationSettings.Save(System.String)">
+            <summary>
+            Save settings to file
+            </summary>
+            <param name="filename">File to save settings</param>
+        </member>
+        <member name="M:eda12131190311906.ApplicationSettings.Save">
+            <summary>
+            Save settings to default file
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.Instance">
+            <summary>
+            Settings instance
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.NumberOfTests">
+            <summary>
+            Number of tests to realize with sorting algorithms
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ReportsPath">
+            <summary>
+            Where to save reports to load with gnuplot
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.GnuplotFullPath">
+            <summary>
+            Gnuplot executable path
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.AutoOpenPlot">
+            <summary>
+            Auto open generated plot files (Gnuplot required)
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayInitialSize">
+            <summary>
+            Array initial size (First array size)
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayGrowFactor">
+            <summary>
+            Array grow factor
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayMinRandomNumber">
+            <summary>
+            Array min random number
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayMaxRandomNumber">
+            <summary>
+            Array max random number
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayNumberGrowFactor">
+            <summary>
+            Array numbers grow factor
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayRandomBetweenValues">
+            <summary>
+            Array random numbers between min and max values
+            </summary>
+        </member>
         <member name="T:eda12131190311906.Bubble">
             <summary>
             Bubble Sort Algorithm
@@ -232,36 +334,6 @@
             All algorithms avaliable to run
             </summary>
         </member>
-        <member name="F:eda12131190311906.Program.NUMBER_OF_TESTS">
-            <summary>
-            Number of tests to realize with sorting algorithms
-            </summary>
-        </member>
-        <member name="F:eda12131190311906.Program.REPORTS_PATH">
-            <summary>
-            Where to save reports to load with gnuplot
-            </summary>
-        </member>
-        <member name="F:eda12131190311906.Program.GNUPLOT_PATH">
-            <summary>
-            Gnuplot executable path
-            </summary>
-        </member>
-        <member name="F:eda12131190311906.Program.AUTO_OPEN_PLOT">
-            <summary>
-            Auto open generated plot files (Gnuplot required)
-            </summary>
-        </member>
-        <member name="F:eda12131190311906.Program.ARRAY_INITIAL_SIZE">
-            <summary>
-            Array initial size (First array size)
-            </summary>
-        </member>
-        <member name="F:eda12131190311906.Program.ARRAY_GROW_FACTOR">
-            <summary>
-            Array grow factor
-            </summary>
-        </member>
         <member name="M:eda12131190311906.Program.Main">
             <summary>
             The main entry point for the application.
@@ -278,11 +350,6 @@
             </summary>
             <param name="name"> Report name</param>
             <returns>Report, null if no exists</returns>
-        </member>
-        <member name="M:eda12131190311906.Program.RunAlgorithms">
-            <summary>
-            Run algorithms, measure execution time and report to a file
-            </summary>
         </member>
         <member name="M:eda12131190311906.Program.RunOneAlgorithm(System.String,System.String,System.Collections.Generic.List{System.Int32[]})">
             <summary>

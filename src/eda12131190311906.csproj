@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Bubble.cs" />
     <Compile Include="Bucket.cs" />
     <Compile Include="Comb.cs" />
@@ -111,7 +112,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)..\$(ProjectName).exe"</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(SolutionDir)..\bin\"
+copy /Y "$(TargetPath)" "$(SolutionDir)..\bin\$(ProjectName).exe"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
