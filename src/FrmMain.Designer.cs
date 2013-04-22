@@ -43,6 +43,15 @@
             this.tbSaveReportsTo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.cbArrayNumberGrowFactorType = new System.Windows.Forms.ComboBox();
+            this.cbArrayGrowFactorType = new System.Windows.Forms.ComboBox();
+            this.cbArrayRandomBetweenValues = new System.Windows.Forms.CheckBox();
+            this.nmArrayMaxRandomNumber = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.nmArrayNumberGrowFactor = new System.Windows.Forms.NumericUpDown();
+            this.nmArrayMinRandomNumber = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.nmArrayGrowFactor = new System.Windows.Forms.NumericUpDown();
             this.nmArrayInitialSize = new System.Windows.Forms.NumericUpDown();
             this.nmNumberOfTests = new System.Windows.Forms.NumericUpDown();
@@ -62,22 +71,15 @@
             this.tmClock = new System.Windows.Forms.Timer(this.components);
             this.lbStatus = new System.Windows.Forms.Label();
             this.gbControls = new System.Windows.Forms.GroupBox();
-            this.nmArrayNumberGrowFactor = new System.Windows.Forms.NumericUpDown();
-            this.nmArrayMinRandomNumber = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.nmArrayMaxRandomNumber = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cbArrayRandomBetweenValues = new System.Windows.Forms.CheckBox();
             this.tsAlgortimsBar.SuspendLayout();
             this.gbOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMaxRandomNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmArrayNumberGrowFactor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMinRandomNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayGrowFactor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayInitialSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmNumberOfTests)).BeginInit();
             this.gbControls.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nmArrayNumberGrowFactor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMinRandomNumber)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMaxRandomNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // cblAlgorithms
@@ -88,7 +90,7 @@
             this.cblAlgorithms.Location = new System.Drawing.Point(0, 25);
             this.cblAlgorithms.MultiColumn = true;
             this.cblAlgorithms.Name = "cblAlgorithms";
-            this.cblAlgorithms.Size = new System.Drawing.Size(406, 94);
+            this.cblAlgorithms.Size = new System.Drawing.Size(438, 94);
             this.cblAlgorithms.TabIndex = 0;
             // 
             // tsAlgortimsBar
@@ -101,7 +103,7 @@
             this.lbAlgorithmsSelected});
             this.tsAlgortimsBar.Location = new System.Drawing.Point(0, 0);
             this.tsAlgortimsBar.Name = "tsAlgortimsBar";
-            this.tsAlgortimsBar.Size = new System.Drawing.Size(406, 25);
+            this.tsAlgortimsBar.Size = new System.Drawing.Size(438, 25);
             this.tsAlgortimsBar.TabIndex = 1;
             this.tsAlgortimsBar.Text = "toolStrip1";
             // 
@@ -153,7 +155,7 @@
             this.tbGnuplotExecutable.Location = new System.Drawing.Point(102, 19);
             this.tbGnuplotExecutable.Name = "tbGnuplotExecutable";
             this.tbGnuplotExecutable.ReadOnly = true;
-            this.tbGnuplotExecutable.Size = new System.Drawing.Size(270, 20);
+            this.tbGnuplotExecutable.Size = new System.Drawing.Size(300, 20);
             this.tbGnuplotExecutable.TabIndex = 5;
             this.tbGnuplotExecutable.Text = "gnuplot";
             this.tbGnuplotExecutable.TextChanged += new System.EventHandler(this.ObjValueChanged);
@@ -181,7 +183,7 @@
             this.tbSaveReportsTo.Location = new System.Drawing.Point(102, 45);
             this.tbSaveReportsTo.Name = "tbSaveReportsTo";
             this.tbSaveReportsTo.ReadOnly = true;
-            this.tbSaveReportsTo.Size = new System.Drawing.Size(270, 20);
+            this.tbSaveReportsTo.Size = new System.Drawing.Size(300, 20);
             this.tbSaveReportsTo.TabIndex = 9;
             this.tbSaveReportsTo.Text = "reports/plot";
             // 
@@ -196,6 +198,8 @@
             // 
             // gbOptions
             // 
+            this.gbOptions.Controls.Add(this.cbArrayNumberGrowFactorType);
+            this.gbOptions.Controls.Add(this.cbArrayGrowFactorType);
             this.gbOptions.Controls.Add(this.cbArrayRandomBetweenValues);
             this.gbOptions.Controls.Add(this.nmArrayMaxRandomNumber);
             this.gbOptions.Controls.Add(this.label9);
@@ -220,10 +224,150 @@
             this.gbOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbOptions.Location = new System.Drawing.Point(0, 119);
             this.gbOptions.Name = "gbOptions";
-            this.gbOptions.Size = new System.Drawing.Size(406, 207);
+            this.gbOptions.Size = new System.Drawing.Size(438, 207);
             this.gbOptions.TabIndex = 11;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Options";
+            // 
+            // cbArrayNumberGrowFactorType
+            // 
+            this.cbArrayNumberGrowFactorType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbArrayNumberGrowFactorType.FormattingEnabled = true;
+            this.cbArrayNumberGrowFactorType.Items.AddRange(new object[] {
+            "*=",
+            "+="});
+            this.cbArrayNumberGrowFactorType.Location = new System.Drawing.Point(307, 146);
+            this.cbArrayNumberGrowFactorType.Name = "cbArrayNumberGrowFactorType";
+            this.cbArrayNumberGrowFactorType.Size = new System.Drawing.Size(40, 21);
+            this.cbArrayNumberGrowFactorType.TabIndex = 29;
+            // 
+            // cbArrayGrowFactorType
+            // 
+            this.cbArrayGrowFactorType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbArrayGrowFactorType.FormattingEnabled = true;
+            this.cbArrayGrowFactorType.Items.AddRange(new object[] {
+            "*=",
+            "+="});
+            this.cbArrayGrowFactorType.Location = new System.Drawing.Point(307, 119);
+            this.cbArrayGrowFactorType.Name = "cbArrayGrowFactorType";
+            this.cbArrayGrowFactorType.Size = new System.Drawing.Size(40, 21);
+            this.cbArrayGrowFactorType.TabIndex = 28;
+            // 
+            // cbArrayRandomBetweenValues
+            // 
+            this.cbArrayRandomBetweenValues.AutoSize = true;
+            this.cbArrayRandomBetweenValues.Checked = true;
+            this.cbArrayRandomBetweenValues.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbArrayRandomBetweenValues.Location = new System.Drawing.Point(201, 173);
+            this.cbArrayRandomBetweenValues.Name = "cbArrayRandomBetweenValues";
+            this.cbArrayRandomBetweenValues.Size = new System.Drawing.Size(187, 17);
+            this.cbArrayRandomBetweenValues.TabIndex = 27;
+            this.cbArrayRandomBetweenValues.Text = "Random numbers between values";
+            this.cbArrayRandomBetweenValues.UseVisualStyleBackColor = true;
+            this.cbArrayRandomBetweenValues.CheckedChanged += new System.EventHandler(this.ButtonClick);
+            // 
+            // nmArrayMaxRandomNumber
+            // 
+            this.nmArrayMaxRandomNumber.Location = new System.Drawing.Point(102, 172);
+            this.nmArrayMaxRandomNumber.Maximum = new decimal(new int[] {
+            147483647,
+            0,
+            0,
+            0});
+            this.nmArrayMaxRandomNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nmArrayMaxRandomNumber.Name = "nmArrayMaxRandomNumber";
+            this.nmArrayMaxRandomNumber.Size = new System.Drawing.Size(90, 20);
+            this.nmArrayMaxRandomNumber.TabIndex = 26;
+            this.nmArrayMaxRandomNumber.Value = new decimal(new int[] {
+            147483647,
+            0,
+            0,
+            0});
+            this.nmArrayMaxRandomNumber.ValueChanged += new System.EventHandler(this.ObjValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(5, 176);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(92, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Max rand number:";
+            // 
+            // nmArrayNumberGrowFactor
+            // 
+            this.nmArrayNumberGrowFactor.DecimalPlaces = 2;
+            this.nmArrayNumberGrowFactor.Enabled = false;
+            this.nmArrayNumberGrowFactor.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.nmArrayNumberGrowFactor.Location = new System.Drawing.Point(353, 146);
+            this.nmArrayNumberGrowFactor.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.nmArrayNumberGrowFactor.Minimum = new decimal(new int[] {
+            11,
+            0,
+            0,
+            65536});
+            this.nmArrayNumberGrowFactor.Name = "nmArrayNumberGrowFactor";
+            this.nmArrayNumberGrowFactor.Size = new System.Drawing.Size(79, 20);
+            this.nmArrayNumberGrowFactor.TabIndex = 24;
+            this.nmArrayNumberGrowFactor.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nmArrayNumberGrowFactor.ValueChanged += new System.EventHandler(this.ObjValueChanged);
+            // 
+            // nmArrayMinRandomNumber
+            // 
+            this.nmArrayMinRandomNumber.Location = new System.Drawing.Point(102, 146);
+            this.nmArrayMinRandomNumber.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.nmArrayMinRandomNumber.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nmArrayMinRandomNumber.Name = "nmArrayMinRandomNumber";
+            this.nmArrayMinRandomNumber.Size = new System.Drawing.Size(90, 20);
+            this.nmArrayMinRandomNumber.TabIndex = 23;
+            this.nmArrayMinRandomNumber.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nmArrayMinRandomNumber.ValueChanged += new System.EventHandler(this.ObjValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(198, 150);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Number grow factor:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(5, 150);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Min rand number:";
             // 
             // nmArrayGrowFactor
             // 
@@ -233,7 +377,7 @@
             0,
             0,
             65536});
-            this.nmArrayGrowFactor.Location = new System.Drawing.Point(307, 120);
+            this.nmArrayGrowFactor.Location = new System.Drawing.Point(353, 120);
             this.nmArrayGrowFactor.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -245,7 +389,7 @@
             0,
             65536});
             this.nmArrayGrowFactor.Name = "nmArrayGrowFactor";
-            this.nmArrayGrowFactor.Size = new System.Drawing.Size(90, 20);
+            this.nmArrayGrowFactor.Size = new System.Drawing.Size(79, 20);
             this.nmArrayGrowFactor.TabIndex = 20;
             this.nmArrayGrowFactor.Value = new decimal(new int[] {
             2,
@@ -334,7 +478,7 @@
             // btnSaveReportsTo
             // 
             this.btnSaveReportsTo.Image = global::eda12131190311906.Properties.Resources.open_file;
-            this.btnSaveReportsTo.Location = new System.Drawing.Point(375, 44);
+            this.btnSaveReportsTo.Location = new System.Drawing.Point(408, 44);
             this.btnSaveReportsTo.Name = "btnSaveReportsTo";
             this.btnSaveReportsTo.Size = new System.Drawing.Size(24, 22);
             this.btnSaveReportsTo.TabIndex = 10;
@@ -344,7 +488,7 @@
             // btnSearchGnuplotExe
             // 
             this.btnSearchGnuplotExe.Image = global::eda12131190311906.Properties.Resources.open_file;
-            this.btnSearchGnuplotExe.Location = new System.Drawing.Point(375, 18);
+            this.btnSearchGnuplotExe.Location = new System.Drawing.Point(408, 18);
             this.btnSearchGnuplotExe.Name = "btnSearchGnuplotExe";
             this.btnSearchGnuplotExe.Size = new System.Drawing.Size(24, 22);
             this.btnSearchGnuplotExe.TabIndex = 6;
@@ -356,13 +500,13 @@
             this.pbLoad.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbLoad.Location = new System.Drawing.Point(0, 467);
             this.pbLoad.Name = "pbLoad";
-            this.pbLoad.Size = new System.Drawing.Size(406, 23);
+            this.pbLoad.Size = new System.Drawing.Size(438, 23);
             this.pbLoad.TabIndex = 15;
             // 
             // lbProjectUrl
             // 
             this.lbProjectUrl.AutoSize = true;
-            this.lbProjectUrl.Location = new System.Drawing.Point(233, 451);
+            this.lbProjectUrl.Location = new System.Drawing.Point(266, 451);
             this.lbProjectUrl.Name = "lbProjectUrl";
             this.lbProjectUrl.Size = new System.Drawing.Size(166, 13);
             this.lbProjectUrl.TabIndex = 16;
@@ -391,7 +535,7 @@
             this.btnStop.Enabled = false;
             this.btnStop.Image = global::eda12131190311906.Properties.Resources.stop;
             this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStop.Location = new System.Drawing.Point(288, 19);
+            this.btnStop.Location = new System.Drawing.Point(326, 19);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(106, 37);
             this.btnStop.TabIndex = 14;
@@ -404,7 +548,7 @@
             this.btnPause.Enabled = false;
             this.btnPause.Image = global::eda12131190311906.Properties.Resources.pause;
             this.btnPause.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPause.Location = new System.Drawing.Point(152, 19);
+            this.btnPause.Location = new System.Drawing.Point(168, 19);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(106, 37);
             this.btnPause.TabIndex = 13;
@@ -416,7 +560,7 @@
             // 
             this.btnStart.Image = global::eda12131190311906.Properties.Resources.play;
             this.btnStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStart.Location = new System.Drawing.Point(12, 19);
+            this.btnStart.Location = new System.Drawing.Point(6, 19);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(106, 37);
             this.btnStart.TabIndex = 12;
@@ -427,7 +571,7 @@
             // lbTimeElapsed
             // 
             this.lbTimeElapsed.AutoSize = true;
-            this.lbTimeElapsed.Location = new System.Drawing.Point(233, 425);
+            this.lbTimeElapsed.Location = new System.Drawing.Point(266, 425);
             this.lbTimeElapsed.Name = "lbTimeElapsed";
             this.lbTimeElapsed.Size = new System.Drawing.Size(88, 13);
             this.lbTimeElapsed.TabIndex = 21;
@@ -455,132 +599,16 @@
             this.gbControls.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbControls.Location = new System.Drawing.Point(0, 326);
             this.gbControls.Name = "gbControls";
-            this.gbControls.Size = new System.Drawing.Size(406, 65);
+            this.gbControls.Size = new System.Drawing.Size(438, 65);
             this.gbControls.TabIndex = 23;
             this.gbControls.TabStop = false;
             this.gbControls.Text = "Controls";
-            // 
-            // nmArrayNumberGrowFactor
-            // 
-            this.nmArrayNumberGrowFactor.DecimalPlaces = 2;
-            this.nmArrayNumberGrowFactor.Enabled = false;
-            this.nmArrayNumberGrowFactor.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.nmArrayNumberGrowFactor.Location = new System.Drawing.Point(307, 146);
-            this.nmArrayNumberGrowFactor.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nmArrayNumberGrowFactor.Minimum = new decimal(new int[] {
-            11,
-            0,
-            0,
-            65536});
-            this.nmArrayNumberGrowFactor.Name = "nmArrayNumberGrowFactor";
-            this.nmArrayNumberGrowFactor.Size = new System.Drawing.Size(90, 20);
-            this.nmArrayNumberGrowFactor.TabIndex = 24;
-            this.nmArrayNumberGrowFactor.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nmArrayNumberGrowFactor.ValueChanged += new System.EventHandler(this.ObjValueChanged);
-            // 
-            // nmArrayMinRandomNumber
-            // 
-            this.nmArrayMinRandomNumber.Location = new System.Drawing.Point(102, 146);
-            this.nmArrayMinRandomNumber.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nmArrayMinRandomNumber.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nmArrayMinRandomNumber.Name = "nmArrayMinRandomNumber";
-            this.nmArrayMinRandomNumber.Size = new System.Drawing.Size(90, 20);
-            this.nmArrayMinRandomNumber.TabIndex = 23;
-            this.nmArrayMinRandomNumber.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nmArrayMinRandomNumber.ValueChanged += new System.EventHandler(this.ObjValueChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(198, 150);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 13);
-            this.label7.TabIndex = 22;
-            this.label7.Text = "Number grow factor:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 150);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "Min rand number:";
-            // 
-            // nmArrayMaxRandomNumber
-            // 
-            this.nmArrayMaxRandomNumber.Location = new System.Drawing.Point(102, 172);
-            this.nmArrayMaxRandomNumber.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nmArrayMaxRandomNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nmArrayMaxRandomNumber.Name = "nmArrayMaxRandomNumber";
-            this.nmArrayMaxRandomNumber.Size = new System.Drawing.Size(90, 20);
-            this.nmArrayMaxRandomNumber.TabIndex = 26;
-            this.nmArrayMaxRandomNumber.Value = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nmArrayMaxRandomNumber.ValueChanged += new System.EventHandler(this.ObjValueChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(5, 176);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(92, 13);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "Max rand number:";
-            // 
-            // cbArrayRandomBetweenValues
-            // 
-            this.cbArrayRandomBetweenValues.AutoSize = true;
-            this.cbArrayRandomBetweenValues.Checked = true;
-            this.cbArrayRandomBetweenValues.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbArrayRandomBetweenValues.Location = new System.Drawing.Point(201, 173);
-            this.cbArrayRandomBetweenValues.Name = "cbArrayRandomBetweenValues";
-            this.cbArrayRandomBetweenValues.Size = new System.Drawing.Size(187, 17);
-            this.cbArrayRandomBetweenValues.TabIndex = 27;
-            this.cbArrayRandomBetweenValues.Text = "Random numbers between values";
-            this.cbArrayRandomBetweenValues.UseVisualStyleBackColor = true;
-            this.cbArrayRandomBetweenValues.CheckedChanged += new System.EventHandler(this.ButtonClick);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(406, 490);
+            this.ClientSize = new System.Drawing.Size(438, 490);
             this.Controls.Add(this.gbControls);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.lbTimeElapsed);
@@ -599,13 +627,13 @@
             this.tsAlgortimsBar.PerformLayout();
             this.gbOptions.ResumeLayout(false);
             this.gbOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMaxRandomNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmArrayNumberGrowFactor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMinRandomNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayGrowFactor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayInitialSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmNumberOfTests)).EndInit();
             this.gbControls.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nmArrayNumberGrowFactor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMinRandomNumber)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmArrayMaxRandomNumber)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -652,6 +680,8 @@
         private System.Windows.Forms.NumericUpDown nmArrayMaxRandomNumber;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox cbArrayRandomBetweenValues;
+        private System.Windows.Forms.ComboBox cbArrayGrowFactorType;
+        private System.Windows.Forms.ComboBox cbArrayNumberGrowFactorType;
     }
 }
 

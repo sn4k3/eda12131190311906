@@ -4,6 +4,10 @@
  * Gonçalo Lampreia Nº 11906
  * https://code.google.com/p/eda12131190311906/
  */
+
+using System;
+using System.Windows.Forms;
+
 namespace eda12131190311906
 {
     /// <summary>
@@ -26,15 +30,15 @@ namespace eda12131190311906
                     max = A[i];
                 }
             }
-            int[] count = new int[max+1];
-            for (int i = 0; i < A.Length; i++) 
+            int[] count = new int[max + 1];
+            for (int i = 0; i < A.Length; i++)
             {
                 count[A[i]]++;
             }
 
-            for (int i = 0, j = 0; i < count.Length; i++) 
+            for (int i = 0, j = 0; i < count.Length; i++)
             {
-                for(; count[i] > 0; (count[i])--)
+                for (; count[i] > 0; (count[i])--)
                 {
                     A[j] = i;
                     j++;

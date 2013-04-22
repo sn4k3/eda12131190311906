@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
@@ -163,7 +164,7 @@ namespace eda12131190311906
                 foreach(var profiler in _profilers)
                 {
                     //Profiler profiler = e.getValue();
-                    fstream.Write("{0}\t\t{1}", count, profiler.Value.ElapsedTicks / 10000D);
+                    fstream.Write("{0}\t\t{1}", count, (profiler.Value.ElapsedTicks / (double)TimeSpan.TicksPerMillisecond).ToString(CultureInfo.InvariantCulture));
 				
                     if(i % PlotColumns.Count == 0)
                     {

@@ -27,11 +27,12 @@ namespace eda12131190311906
 															"Heap",
 															"Merge",
 															"Quick",
+                                                            "Radix",
 															"Bucket",
 															"Counting",
 															"Comb",
 															"Selection",
-															"Shell"};
+															"Shell",};
         /// <summary>
         /// GNUPLOT Graf generator file
         /// </summary>

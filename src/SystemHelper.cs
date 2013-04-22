@@ -75,7 +75,7 @@ namespace eda12131190311906
         /// <returns>An array populated with random values</returns>
         public static int[] RandomIntegerArray(int size, int minValue, int maxValue)
         {
-            var rand = new Random(Guid.NewGuid().GetHashCode());
+            var rand = new Random();
             var A = new int[size];
             for (int i = 0; i < size; i++)
             {

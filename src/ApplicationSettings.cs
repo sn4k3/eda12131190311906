@@ -77,7 +77,7 @@ namespace eda12131190311906
         /// <summary>
         /// Array initial size (First array size)
         /// </summary>
-        public int ArrayInitialSize { get; set; }
+        public uint ArrayInitialSize { get; set; }
 
         /// <summary>
         /// Array grow factor
@@ -87,12 +87,12 @@ namespace eda12131190311906
         /// <summary>
         /// Array min random number
         /// </summary>
-        public int ArrayMinRandomNumber { get; set; }
+        public uint ArrayMinRandomNumber { get; set; }
 
         /// <summary>
         /// Array max random number
         /// </summary>
-        public int ArrayMaxRandomNumber { get; set; }
+        public uint ArrayMaxRandomNumber { get; set; }
 
         /// <summary>
         /// Array numbers grow factor
@@ -120,7 +120,7 @@ namespace eda12131190311906
             ArrayGrowFactor = 2;
 
             ArrayMinRandomNumber = 100;
-            ArrayMaxRandomNumber = Int32.MaxValue;
+            ArrayMaxRandomNumber = ushort.MaxValue;
             ArrayNumberGrowFactor = 5.0;
             ArrayRandomBetweenValues = true;
         }

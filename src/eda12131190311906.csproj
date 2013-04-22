@@ -52,6 +52,7 @@
     <Compile Include="Bubble.cs" />
     <Compile Include="Bucket.cs" />
     <Compile Include="Comb.cs" />
+    <Compile Include="Radix.cs" />
     <Compile Include="Counting.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>

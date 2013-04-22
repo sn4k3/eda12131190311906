@@ -58,17 +58,23 @@ namespace eda12131190311906
                 cblAlgorithms.Items.Add(algorithm, true);
                 cblAlgorithms.EndUpdate();
             }
-
-            tbGnuplotExecutable.Text = ApplicationSettings.Instance.GnuplotFullPath;
-            tbSaveReportsTo.Text = ApplicationSettings.Instance.ReportsPath;
-            cbAutoOpenPlots.Checked = ApplicationSettings.Instance.AutoOpenPlot;
-            nmNumberOfTests.Value = ApplicationSettings.Instance.NumberOfTests;
-            nmArrayInitialSize.Value = ApplicationSettings.Instance.ArrayInitialSize;
-            nmArrayGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayGrowFactor);
-            nmArrayMinRandomNumber.Value = ApplicationSettings.Instance.ArrayMinRandomNumber;
-            nmArrayMaxRandomNumber.Value = ApplicationSettings.Instance.ArrayMaxRandomNumber;
-            nmArrayNumberGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayNumberGrowFactor);
-            cbArrayRandomBetweenValues.Checked = ApplicationSettings.Instance.ArrayRandomBetweenValues;
+            try
+            {
+                tbGnuplotExecutable.Text = ApplicationSettings.Instance.GnuplotFullPath;
+                tbSaveReportsTo.Text = ApplicationSettings.Instance.ReportsPath;
+                cbAutoOpenPlots.Checked = ApplicationSettings.Instance.AutoOpenPlot;
+                nmNumberOfTests.Value = ApplicationSettings.Instance.NumberOfTests;
+                nmArrayInitialSize.Value = ApplicationSettings.Instance.ArrayInitialSize;
+                nmArrayGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayGrowFactor);
+                nmArrayMinRandomNumber.Value = ApplicationSettings.Instance.ArrayMinRandomNumber;
+                nmArrayMaxRandomNumber.Value = ApplicationSettings.Instance.ArrayMaxRandomNumber;
+                nmArrayNumberGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayNumberGrowFactor);
+                cbArrayRandomBetweenValues.Checked = ApplicationSettings.Instance.ArrayRandomBetweenValues;
+            }
+            catch
+            {
+            }
+            
         }
 
         /// <summary>
@@ -220,56 +226,32 @@ namespace eda12131190311906
             }
             if (sender == nmNumberOfTests)
             {
-                byte number;
-                if (byte.TryParse(nmNumberOfTests.Value.ToString(CultureInfo.InvariantCulture), out number))
-                {
-                    ApplicationSettings.Instance.NumberOfTests = number;
-                }
+                ApplicationSettings.Instance.NumberOfTests = Convert.ToByte(nmNumberOfTests.Value);
                 return;
             }
             if (sender == nmArrayInitialSize)
             {
-                int number;
-                if (int.TryParse(nmArrayInitialSize.Value.ToString(CultureInfo.InvariantCulture), out number))
-                {
-                    ApplicationSettings.Instance.ArrayInitialSize = number;
-                }
+                ApplicationSettings.Instance.ArrayInitialSize = Convert.ToUInt32(nmArrayInitialSize.Value);
                 return;
             }
             if (sender == nmArrayGrowFactor)
             {
-                double number;
-                if (double.TryParse(nmArrayGrowFactor.Value.ToString(CultureInfo.InvariantCulture), out number))
-                {
-                    ApplicationSettings.Instance.ArrayGrowFactor = number;
-                }
+                ApplicationSettings.Instance.ArrayGrowFactor = Convert.ToDouble(nmArrayGrowFactor.Value);
                 return;
             }
             if (sender == nmArrayMinRandomNumber)
             {
-                int number;
-                if (int.TryParse(nmArrayMinRandomNumber.Value.ToString(CultureInfo.InvariantCulture), out number))
-                {
-                    ApplicationSettings.Instance.ArrayMinRandomNumber = number;
-                }
+                ApplicationSettings.Instance.ArrayMinRandomNumber = Convert.ToUInt32(nmArrayMinRandomNumber.Value);
                 return;
             }
             if (sender == nmArrayMaxRandomNumber)
             {
-                int number;
-                if (int.TryParse(nmArrayMaxRandomNumber.Value.ToString(CultureInfo.InvariantCulture), out number))
-                {
-                    ApplicationSettings.Instance.ArrayMaxRandomNumber = number;
-                }
+                ApplicationSettings.Instance.ArrayMaxRandomNumber = Convert.ToUInt32(nmArrayMaxRandomNumber.Value);
                 return;
             }
             if (sender == nmArrayNumberGrowFactor)
             {
-                double number;
-                if (double.TryParse(nmArrayNumberGrowFactor.Value.ToString(CultureInfo.InvariantCulture), out number))
-                {
-                    ApplicationSettings.Instance.ArrayNumberGrowFactor = number;
-                }
+                ApplicationSettings.Instance.ArrayNumberGrowFactor = Convert.ToDouble(nmArrayNumberGrowFactor.Value);
                 return;
             }
         }
@@ -286,9 +268,9 @@ namespace eda12131190311906
                 bgWorker.ReportProgress(1, "Generating arrays");
                 var testArray = new List<int[]>(ApplicationSettings.Instance.NumberOfTests);
                 double size = ApplicationSettings.Instance.ArrayInitialSize;
-                int minvalue = Math.Max(100, ApplicationSettings.Instance.ArrayMinRandomNumber);  
+                int minvalue = Math.Max(100, Convert.ToInt32(ApplicationSettings.Instance.ArrayMinRandomNumber));  
                 double maxvalue = ApplicationSettings.Instance.ArrayRandomBetweenValues
-                                      ? Math.Min(ApplicationSettings.Instance.ArrayMaxRandomNumber, int.MaxValue)
+                                      ? Math.Min(Convert.ToInt32(ApplicationSettings.Instance.ArrayMaxRandomNumber), int.MaxValue)
                                       : minvalue;
 
                 for (int i = 1; i <= ApplicationSettings.Instance.NumberOfTests; i++)
