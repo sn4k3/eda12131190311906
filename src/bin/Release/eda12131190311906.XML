@@ -4,6 +4,32 @@
         <name>eda12131190311906</name>
     </assembly>
     <members>
+        <member name="T:eda12131190311906.AbortableBackgroundWorker">
+            <summary>
+            Executes an operation on a separate thread.
+            Can be aborted without a wait time
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.AbortableBackgroundWorker._workerThread">
+            <summary>
+            Thread to manage background operation
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.AbortableBackgroundWorker.OnDoWork(System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Occurs when <see cref="M:System.ComponentModel.BackgroundWorker.RunWorkerAsync"/> is called.
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.AbortableBackgroundWorker.Abort">
+            <summary>
+            Abort operation immediately
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.AbortableBackgroundWorker.AbortCancel">
+            <summary>
+            Abort operation immediately and try to cancel first
+            </summary>
+        </member>
         <member name="T:eda12131190311906.ApplicationSettings">
             <summary>
             Application settings
@@ -26,8 +52,14 @@
         </member>
         <member name="M:eda12131190311906.ApplicationSettings.#ctor">
             <summary>
-            Constructor
+            Constructor, with default settings
             </summary>
+        </member>
+        <member name="M:eda12131190311906.ApplicationSettings.ToString">
+            <summary>
+            Get a string represetantion of this class
+            </summary>
+            <returns>String represetantion of this class</returns>
         </member>
         <member name="M:eda12131190311906.ApplicationSettings.Reload(System.String)">
             <summary>
@@ -56,11 +88,6 @@
             Settings instance
             </summary>
         </member>
-        <member name="P:eda12131190311906.ApplicationSettings.NumberOfTests">
-            <summary>
-            Number of tests to realize with sorting algorithms
-            </summary>
-        </member>
         <member name="P:eda12131190311906.ApplicationSettings.ReportsPath">
             <summary>
             Where to save reports to load with gnuplot
@@ -76,9 +103,29 @@
             Auto open generated plot files (Gnuplot required)
             </summary>
         </member>
+        <member name="P:eda12131190311906.ApplicationSettings.NumberOfTests">
+            <summary>
+            Number of tests to realize with sorting algorithms
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ComputeAverageValueWith">
+            <summary>
+            Compute time average repeating same code block x times
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.CutLowerHigherAverageValue">
+            <summary>
+            Cut lower and higher time values for compute a better average
+            </summary>
+        </member>
         <member name="P:eda12131190311906.ApplicationSettings.ArrayInitialSize">
             <summary>
             Array initial size (First array size)
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayGrowFactorType">
+            <summary>
+            Array grow factor type
             </summary>
         </member>
         <member name="P:eda12131190311906.ApplicationSettings.ArrayGrowFactor">
@@ -94,6 +141,11 @@
         <member name="P:eda12131190311906.ApplicationSettings.ArrayMaxRandomNumber">
             <summary>
             Array max random number
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.ApplicationSettings.ArrayNumberGrowFactorType">
+            <summary>
+            Array number grow factor type
             </summary>
         </member>
         <member name="P:eda12131190311906.ApplicationSettings.ArrayNumberGrowFactor">
@@ -397,11 +449,6 @@
             <param name="A">List with arrays to sort</param>
             <returns>Report log</returns>
         </member>
-        <member name="M:eda12131190311906.Program.GenerateGnuplotFiles">
-            <summary>
-            Generate Gnuplot graf files
-            </summary>
-        </member>
         <member name="P:eda12131190311906.Program.Reports">
             <summary>
             Collection of reports
@@ -489,7 +536,7 @@
             </summary>
             <param name="name">Report name</param>
         </member>
-        <member name="M:eda12131190311906.Report.AddProfiler(System.String,System.Diagnostics.Stopwatch)">
+        <member name="M:eda12131190311906.Report.AddProfiler(System.String,eda12131190311906.StopwatchEx)">
             <summary>
             Add a profiler
             </summary>
@@ -530,6 +577,11 @@
             Write reports to a file
             </summary>
         </member>
+        <member name="M:eda12131190311906.Report.GenerateGnuplotFiles">
+            <summary>
+            Generate Gnuplot graf files
+            </summary>
+        </member>
         <member name="P:eda12131190311906.Report.Name">
             <summary>
             Report name
@@ -568,6 +620,83 @@
             Sort an array
             </summary>
             <param name="A">Array to sort</param>
+        </member>
+        <member name="T:eda12131190311906.StopwatchEx">
+            <summary>
+            Provides a set of methods and properties that you can use to accurately measure elapsed time. 
+            Extended Version
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.StopwatchEx.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eda12131190311906.StopwatchEx"/> class.
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.StopwatchEx.#ctor(System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eda12131190311906.StopwatchEx"/> class.
+            </summary>
+            <param name="editableElapsed"></param>
+        </member>
+        <member name="M:eda12131190311906.StopwatchEx.StartNew">
+            <summary>
+            Initializes a new <see cref="T:eda12131190311906.StopwatchEx"/> instance, sets the elapsed time property to zero, and starts measuring elapsed time.
+            </summary>
+            
+            <returns>
+            A <see cref="T:eda12131190311906.StopwatchEx"/> that has just begun measuring elapsed time.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:eda12131190311906.StopwatchEx.Equals(eda12131190311906.StopwatchEx)">
+            <summary>
+            Check if this object is equal to other
+            </summary>
+            <param name="other">Other object</param>
+            <returns>True if is equal, otherwise false</returns>
+        </member>
+        <member name="M:eda12131190311906.StopwatchEx.CompareTo(eda12131190311906.StopwatchEx)">
+            <summary>
+            Compare this object with other
+            </summary>
+            <param name="other">Other object</param>
+            <returns>-1 if is lower, 0 if equals, 1 if is higher</returns>
+        </member>
+        <member name="M:eda12131190311906.StopwatchEx.ComputeAverage(System.Collections.Generic.List{eda12131190311906.StopwatchEx},System.Boolean)">
+            <summary>
+            Compute average value from a list of values
+            </summary>
+            <param name="list">List with all values</param>
+            <param name="cutLowerHigher">If true the lower and higher values will be cut from calculations</param>
+        </member>
+        <member name="P:eda12131190311906.StopwatchEx.EditableElapsed">
+            <summary>
+            Gets or sets the total elapsed time measured by the current instance.
+            </summary>
+            
+            <returns>
+            A read-only <see cref="T:System.TimeSpan"/> representing the total elapsed time measured by the current instance.
+            </returns>
+        </member>
+        <member name="P:eda12131190311906.StopwatchEx.ElapsedMilliseconds">
+            <summary>
+            Gets the total elapsed time measured by the current instance, in milliseconds.
+            </summary>
+            
+            <returns>
+            A read-only long integer representing the total number of milliseconds measured by the current instance.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="P:eda12131190311906.StopwatchEx.ElapsedTicks">
+            <summary>
+            Gets the total elapsed time measured by the current instance, in timer ticks.
+            </summary>
+            
+            <returns>
+            A read-only long integer representing the total number of timer ticks measured by the current instance.
+            </returns>
+            <filterpriority>1</filterpriority>
         </member>
         <member name="T:eda12131190311906.SystemHelper">
             <summary>

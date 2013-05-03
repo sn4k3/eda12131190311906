@@ -31,7 +31,7 @@ namespace eda12131190311906
         /// <summary>
         /// Collection of profilers
         /// </summary>
-        private readonly Dictionary<string, Stopwatch> _profilers;
+        private readonly Dictionary<string, StopwatchEx> _profilers;
 	
         /// <summary>
         /// Plot columns text
@@ -46,7 +46,7 @@ namespace eda12131190311906
         {
             Name = name;
             Comments = new List<string>();
-            _profilers = new Dictionary<string, Stopwatch>();
+            _profilers = new Dictionary<string, StopwatchEx>();
             PlotColumns = new List<string>();
         }
 
@@ -56,7 +56,7 @@ namespace eda12131190311906
         /// <param name="name">Profiler name</param>
         /// <param name="profiler">Profiler to add</param>
         /// <returns>True if added, otherwise false (Duplicated name)</returns>
-        public bool AddProfiler(string name, Stopwatch profiler)
+        public bool AddProfiler(string name, StopwatchEx profiler)
         {
             if(_profilers.ContainsKey(name))
             {
@@ -72,13 +72,13 @@ namespace eda12131190311906
         /// <param name="name">Profiler name</param>
         /// <param name="run">Start profiling or not</param>
         /// <returns>Profiler added to map</returns>
-        public Stopwatch AddProfiler(string name, bool run)
+        public StopwatchEx AddProfiler(string name, bool run)
         {
             if(_profilers.ContainsKey(name))
             {
                 return _profilers[name];
             }
-            var profiler = new Stopwatch();
+            var profiler = new StopwatchEx();
             _profilers.Add(name, profiler);
             if (run)
             {
@@ -92,7 +92,7 @@ namespace eda12131190311906
         /// </summary>
         /// <param name="name">Profiler name</param>
         /// <returns>Profiler added to map</returns>
-        public Stopwatch AddProfiler(string name)
+        public StopwatchEx AddProfiler(string name)
         {
             return AddProfiler(name, true);
         }
@@ -102,7 +102,7 @@ namespace eda12131190311906
         /// </summary>
         /// <param name="name">Profiler name</param>
         /// <returns>Profiler, null if not exists</returns>
-        public Stopwatch GetProfiler(string name)
+        public StopwatchEx GetProfiler(string name)
         {
             return _profilers.ContainsKey(name) 
                        ? _profilers[name] 
@@ -204,6 +204,50 @@ namespace eda12131190311906
         public void WriteToFile()
         {
             WriteToFile(ApplicationSettings.Instance.ReportsPath);
+        }
+
+        /// <summary>
+        /// Generate Gnuplot graf files
+        /// </summary>
+        public static void GenerateGnuplotFiles()
+        {
+            try
+            {
+                if (!Directory.Exists(ApplicationSettings.Instance.ReportsPath))
+                {
+                    Directory.CreateDirectory(ApplicationSettings.Instance.ReportsPath);
+                }
+                using (TextWriter fstream = new StreamWriter(Path.Combine(ApplicationSettings.Instance.ReportsPath, Program.GNUPLOT_GENERATOR_FILE) +
+                                                                 (SystemHelper.IsWindows() ? ".bat" : ".sh")))
+                {
+                    string gnuvar = "%GNUPLOT_PATH%";
+                    if (SystemHelper.IsWindows())
+                    {
+                        fstream.Write("@echo off\n" +
+                                        "title \"Relatorio de grafos com GNUPLOT\"\n" +
+                                        "set GNUPLOT_PATH=\"{0}\"\n", ApplicationSettings.Instance.GnuplotFullPath);
+                    }
+                    else
+                    {
+                        fstream.Write("echo \"Relatorio de grafos com GNUPLOT\"\n" +
+                                        "GNUPLOT_PATH=\"{0}\"\n", ApplicationSettings.Instance.GnuplotFullPath);
+                        gnuvar = "$GNUPLOT_PATH";
+                    }
+                    for (int i = 0; i < Program.ALGORTIHMS.Length; i++)
+                    {
+                        fstream.Write("echo Running {0} sort plot\n" +
+                                        "{1} -p \"{0}.plt\"\n", Program.ALGORTIHMS[i], gnuvar);
+
+                    }
+                    fstream.Write("\npause");
+
+                    fstream.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

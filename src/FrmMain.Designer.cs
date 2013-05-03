@@ -43,6 +43,9 @@
             this.tbSaveReportsTo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.cbCutLowerHigherAvgValue = new System.Windows.Forms.CheckBox();
+            this.nmComputeAverageValueWith = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.cbArrayNumberGrowFactorType = new System.Windows.Forms.ComboBox();
             this.cbArrayGrowFactorType = new System.Windows.Forms.ComboBox();
             this.cbArrayRandomBetweenValues = new System.Windows.Forms.CheckBox();
@@ -63,7 +66,7 @@
             this.pbLoad = new System.Windows.Forms.ProgressBar();
             this.lbProjectUrl = new System.Windows.Forms.LinkLabel();
             this.lbCredits = new System.Windows.Forms.Label();
-            this.bgWorker = new System.ComponentModel.BackgroundWorker();
+            this.bgWorker = new AbortableBackgroundWorker();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
@@ -71,8 +74,10 @@
             this.tmClock = new System.Windows.Forms.Timer(this.components);
             this.lbStatus = new System.Windows.Forms.Label();
             this.gbControls = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tsAlgortimsBar.SuspendLayout();
             this.gbOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmComputeAverageValueWith)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayMaxRandomNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayNumberGrowFactor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayMinRandomNumber)).BeginInit();
@@ -198,6 +203,9 @@
             // 
             // gbOptions
             // 
+            this.gbOptions.Controls.Add(this.cbCutLowerHigherAvgValue);
+            this.gbOptions.Controls.Add(this.nmComputeAverageValueWith);
+            this.gbOptions.Controls.Add(this.label10);
             this.gbOptions.Controls.Add(this.cbArrayNumberGrowFactorType);
             this.gbOptions.Controls.Add(this.cbArrayGrowFactorType);
             this.gbOptions.Controls.Add(this.cbArrayRandomBetweenValues);
@@ -224,10 +232,55 @@
             this.gbOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbOptions.Location = new System.Drawing.Point(0, 119);
             this.gbOptions.Name = "gbOptions";
-            this.gbOptions.Size = new System.Drawing.Size(438, 207);
+            this.gbOptions.Size = new System.Drawing.Size(438, 233);
             this.gbOptions.TabIndex = 11;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Options";
+            // 
+            // cbCutLowerHigherAvgValue
+            // 
+            this.cbCutLowerHigherAvgValue.AutoSize = true;
+            this.cbCutLowerHigherAvgValue.Checked = true;
+            this.cbCutLowerHigherAvgValue.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCutLowerHigherAvgValue.Location = new System.Drawing.Point(201, 121);
+            this.cbCutLowerHigherAvgValue.Name = "cbCutLowerHigherAvgValue";
+            this.cbCutLowerHigherAvgValue.Size = new System.Drawing.Size(157, 17);
+            this.cbCutLowerHigherAvgValue.TabIndex = 32;
+            this.cbCutLowerHigherAvgValue.Text = "Cut lower and higher values";
+            this.cbCutLowerHigherAvgValue.UseVisualStyleBackColor = true;
+            this.cbCutLowerHigherAvgValue.CheckedChanged += new System.EventHandler(this.ObjValueChanged);
+            // 
+            // nmComputeAverageValueWith
+            // 
+            this.nmComputeAverageValueWith.Location = new System.Drawing.Point(102, 120);
+            this.nmComputeAverageValueWith.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nmComputeAverageValueWith.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nmComputeAverageValueWith.Name = "nmComputeAverageValueWith";
+            this.nmComputeAverageValueWith.Size = new System.Drawing.Size(90, 20);
+            this.nmComputeAverageValueWith.TabIndex = 31;
+            this.nmComputeAverageValueWith.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nmComputeAverageValueWith.ValueChanged += new System.EventHandler(this.ObjValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(5, 124);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(94, 13);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "Compute average:";
             // 
             // cbArrayNumberGrowFactorType
             // 
@@ -236,10 +289,11 @@
             this.cbArrayNumberGrowFactorType.Items.AddRange(new object[] {
             "*=",
             "+="});
-            this.cbArrayNumberGrowFactorType.Location = new System.Drawing.Point(307, 146);
+            this.cbArrayNumberGrowFactorType.Location = new System.Drawing.Point(307, 172);
             this.cbArrayNumberGrowFactorType.Name = "cbArrayNumberGrowFactorType";
             this.cbArrayNumberGrowFactorType.Size = new System.Drawing.Size(40, 21);
             this.cbArrayNumberGrowFactorType.TabIndex = 29;
+            this.cbArrayNumberGrowFactorType.SelectedIndexChanged += new System.EventHandler(this.ObjValueChanged);
             // 
             // cbArrayGrowFactorType
             // 
@@ -248,17 +302,18 @@
             this.cbArrayGrowFactorType.Items.AddRange(new object[] {
             "*=",
             "+="});
-            this.cbArrayGrowFactorType.Location = new System.Drawing.Point(307, 119);
+            this.cbArrayGrowFactorType.Location = new System.Drawing.Point(307, 145);
             this.cbArrayGrowFactorType.Name = "cbArrayGrowFactorType";
             this.cbArrayGrowFactorType.Size = new System.Drawing.Size(40, 21);
             this.cbArrayGrowFactorType.TabIndex = 28;
+            this.cbArrayGrowFactorType.SelectedIndexChanged += new System.EventHandler(this.ObjValueChanged);
             // 
             // cbArrayRandomBetweenValues
             // 
             this.cbArrayRandomBetweenValues.AutoSize = true;
             this.cbArrayRandomBetweenValues.Checked = true;
             this.cbArrayRandomBetweenValues.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbArrayRandomBetweenValues.Location = new System.Drawing.Point(201, 173);
+            this.cbArrayRandomBetweenValues.Location = new System.Drawing.Point(201, 199);
             this.cbArrayRandomBetweenValues.Name = "cbArrayRandomBetweenValues";
             this.cbArrayRandomBetweenValues.Size = new System.Drawing.Size(187, 17);
             this.cbArrayRandomBetweenValues.TabIndex = 27;
@@ -268,7 +323,7 @@
             // 
             // nmArrayMaxRandomNumber
             // 
-            this.nmArrayMaxRandomNumber.Location = new System.Drawing.Point(102, 172);
+            this.nmArrayMaxRandomNumber.Location = new System.Drawing.Point(102, 198);
             this.nmArrayMaxRandomNumber.Maximum = new decimal(new int[] {
             147483647,
             0,
@@ -292,7 +347,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(5, 176);
+            this.label9.Location = new System.Drawing.Point(5, 202);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(92, 13);
             this.label9.TabIndex = 25;
@@ -307,7 +362,7 @@
             0,
             0,
             65536});
-            this.nmArrayNumberGrowFactor.Location = new System.Drawing.Point(353, 146);
+            this.nmArrayNumberGrowFactor.Location = new System.Drawing.Point(353, 172);
             this.nmArrayNumberGrowFactor.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -330,7 +385,7 @@
             // 
             // nmArrayMinRandomNumber
             // 
-            this.nmArrayMinRandomNumber.Location = new System.Drawing.Point(102, 146);
+            this.nmArrayMinRandomNumber.Location = new System.Drawing.Point(102, 172);
             this.nmArrayMinRandomNumber.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -354,7 +409,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(198, 150);
+            this.label7.Location = new System.Drawing.Point(198, 176);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 13);
             this.label7.TabIndex = 22;
@@ -363,7 +418,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 150);
+            this.label8.Location = new System.Drawing.Point(5, 176);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 13);
             this.label8.TabIndex = 21;
@@ -377,7 +432,7 @@
             0,
             0,
             65536});
-            this.nmArrayGrowFactor.Location = new System.Drawing.Point(353, 120);
+            this.nmArrayGrowFactor.Location = new System.Drawing.Point(353, 146);
             this.nmArrayGrowFactor.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -400,7 +455,7 @@
             // 
             // nmArrayInitialSize
             // 
-            this.nmArrayInitialSize.Location = new System.Drawing.Point(102, 120);
+            this.nmArrayInitialSize.Location = new System.Drawing.Point(102, 146);
             this.nmArrayInitialSize.Maximum = new decimal(new int[] {
             9000000,
             0,
@@ -447,7 +502,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(198, 124);
+            this.label6.Location = new System.Drawing.Point(198, 150);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 14;
@@ -456,7 +511,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 124);
+            this.label5.Location = new System.Drawing.Point(5, 150);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 13);
             this.label5.TabIndex = 12;
@@ -472,7 +527,7 @@
             this.cbAutoOpenPlots.Size = new System.Drawing.Size(254, 17);
             this.cbAutoOpenPlots.TabIndex = 11;
             this.cbAutoOpenPlots.Text = "Auto open generated plot files (Gnuplot required)";
-            this.cbAutoOpenPlots.UseVisualStyleBackColor = true;
+            this.cbAutoOpenPlots.UseVisualStyleBackColor = false;
             this.cbAutoOpenPlots.CheckedChanged += new System.EventHandler(this.ButtonClick);
             // 
             // btnSaveReportsTo
@@ -498,7 +553,7 @@
             // pbLoad
             // 
             this.pbLoad.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbLoad.Location = new System.Drawing.Point(0, 467);
+            this.pbLoad.Location = new System.Drawing.Point(0, 507);
             this.pbLoad.Name = "pbLoad";
             this.pbLoad.Size = new System.Drawing.Size(438, 23);
             this.pbLoad.TabIndex = 15;
@@ -506,7 +561,7 @@
             // lbProjectUrl
             // 
             this.lbProjectUrl.AutoSize = true;
-            this.lbProjectUrl.Location = new System.Drawing.Point(266, 451);
+            this.lbProjectUrl.Location = new System.Drawing.Point(266, 491);
             this.lbProjectUrl.Name = "lbProjectUrl";
             this.lbProjectUrl.Size = new System.Drawing.Size(166, 13);
             this.lbProjectUrl.TabIndex = 16;
@@ -516,7 +571,7 @@
             // lbCredits
             // 
             this.lbCredits.AutoSize = true;
-            this.lbCredits.Location = new System.Drawing.Point(5, 425);
+            this.lbCredits.Location = new System.Drawing.Point(5, 465);
             this.lbCredits.Name = "lbCredits";
             this.lbCredits.Size = new System.Drawing.Size(138, 39);
             this.lbCredits.TabIndex = 17;
@@ -571,7 +626,7 @@
             // lbTimeElapsed
             // 
             this.lbTimeElapsed.AutoSize = true;
-            this.lbTimeElapsed.Location = new System.Drawing.Point(266, 425);
+            this.lbTimeElapsed.Location = new System.Drawing.Point(266, 465);
             this.lbTimeElapsed.Name = "lbTimeElapsed";
             this.lbTimeElapsed.Size = new System.Drawing.Size(88, 13);
             this.lbTimeElapsed.TabIndex = 21;
@@ -585,7 +640,7 @@
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(5, 400);
+            this.lbStatus.Location = new System.Drawing.Point(5, 430);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(74, 13);
             this.lbStatus.TabIndex = 22;
@@ -597,18 +652,24 @@
             this.gbControls.Controls.Add(this.btnPause);
             this.gbControls.Controls.Add(this.btnStop);
             this.gbControls.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbControls.Location = new System.Drawing.Point(0, 326);
+            this.gbControls.Location = new System.Drawing.Point(0, 352);
             this.gbControls.Name = "gbControls";
             this.gbControls.Size = new System.Drawing.Size(438, 65);
             this.gbControls.TabIndex = 23;
             this.gbControls.TabStop = false;
             this.gbControls.Text = "Controls";
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Test";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 490);
+            this.ClientSize = new System.Drawing.Size(438, 530);
             this.Controls.Add(this.gbControls);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.lbTimeElapsed);
@@ -627,6 +688,7 @@
             this.tsAlgortimsBar.PerformLayout();
             this.gbOptions.ResumeLayout(false);
             this.gbOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmComputeAverageValueWith)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayMaxRandomNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayNumberGrowFactor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayMinRandomNumber)).EndInit();
@@ -663,7 +725,7 @@
         private System.Windows.Forms.ProgressBar pbLoad;
         private System.Windows.Forms.LinkLabel lbProjectUrl;
         private System.Windows.Forms.Label lbCredits;
-        private System.ComponentModel.BackgroundWorker bgWorker;
+        private AbortableBackgroundWorker bgWorker;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown nmNumberOfTests;
@@ -682,6 +744,10 @@
         private System.Windows.Forms.CheckBox cbArrayRandomBetweenValues;
         private System.Windows.Forms.ComboBox cbArrayGrowFactorType;
         private System.Windows.Forms.ComboBox cbArrayNumberGrowFactorType;
+        private System.Windows.Forms.CheckBox cbCutLowerHigherAvgValue;
+        private System.Windows.Forms.NumericUpDown nmComputeAverageValueWith;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

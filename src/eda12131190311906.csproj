@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbortableBackgroundWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Bubble.cs" />
     <Compile Include="Bucket.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Report.cs" />
     <Compile Include="Selection.cs" />
     <Compile Include="Shell.cs" />
+    <Compile Include="StopwatchEx.cs" />
     <Compile Include="SystemHelper.cs" />
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>

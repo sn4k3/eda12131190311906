@@ -55,11 +55,6 @@ namespace eda12131190311906
         }
 
         /// <summary>
-        /// Number of tests to realize with sorting algorithms
-        /// </summary>
-        public byte NumberOfTests { get; set; }
-
-        /// <summary>
         /// Where to save reports to load with gnuplot
         /// </summary>
         public string ReportsPath { get; set; }
@@ -75,9 +70,29 @@ namespace eda12131190311906
         public bool AutoOpenPlot { get; set; }
 
         /// <summary>
+        /// Number of tests to realize with sorting algorithms
+        /// </summary>
+        public byte NumberOfTests { get; set; }
+
+        /// <summary>
+        /// Compute time average repeating same code block x times
+        /// </summary>
+        public byte ComputeAverageValueWith { get; set; }
+
+        /// <summary>
+        /// Cut lower and higher time values for compute a better average
+        /// </summary>
+        public bool CutLowerHigherAverageValue { get; set; }
+
+        /// <summary>
         /// Array initial size (First array size)
         /// </summary>
         public uint ArrayInitialSize { get; set; }
+
+        /// <summary>
+        /// Array grow factor type
+        /// </summary>
+        public char ArrayGrowFactorType { get; set; }
 
         /// <summary>
         /// Array grow factor
@@ -95,6 +110,11 @@ namespace eda12131190311906
         public uint ArrayMaxRandomNumber { get; set; }
 
         /// <summary>
+        /// Array number grow factor type
+        /// </summary>
+        public char ArrayNumberGrowFactorType { get; set; }
+
+        /// <summary>
         /// Array numbers grow factor
         /// </summary>
         public double ArrayNumberGrowFactor { get; set; }
@@ -107,22 +127,67 @@ namespace eda12131190311906
 
         #region Constructor
         /// <summary>
-        /// Constructor
+        /// Constructor, with default settings
         /// </summary>
         public ApplicationSettings()
         {
-            NumberOfTests = 10;
             ReportsPath = "reports";
             GnuplotFullPath = null;
             AutoOpenPlot = true;
 
+            NumberOfTests = 10;
+            ComputeAverageValueWith = 5;
+            CutLowerHigherAverageValue = true;
+
             ArrayInitialSize = 2;
             ArrayGrowFactor = 2;
+            ArrayGrowFactorType = '*';
 
             ArrayMinRandomNumber = 100;
             ArrayMaxRandomNumber = ushort.MaxValue;
+            ArrayNumberGrowFactorType = '*';
             ArrayNumberGrowFactor = 5.0;
             ArrayRandomBetweenValues = true;
+        }
+        #endregion
+
+        #region Overrides
+        /// <summary>
+        /// Get a string represetantion of this class
+        /// </summary>
+        /// <returns>String represetantion of this class</returns>
+        public override string ToString()
+        {
+            return string.Format("Filename: {0}\n" +
+                                 "Reports path: {1}\n" +
+                                 "Gnuplot full path: {2}\n" +
+                                 "Auto open plot: {3}\n" +
+                                 "Number of tests: {4}\n" +
+                                 "Compute average value with: {5}\n" +
+                                 "Cut lower and higher average value: {6}\n" +
+                                 "Array initial size: {7}\n" +
+                                 "Array grow factor type: {8}\n" +
+                                 "Array grow factor: {9}\n" +
+                                 "Array min random number: {10}\n" +
+                                 "Array max random number: {11}\n" +
+                                 "Array number grow factor type: {12}\n" +
+                                 "Array number grow factor: {13}\n" +
+                                 "Array random between values: {14}", 
+                                    Filename, 
+                                    ReportsPath, 
+                                    GnuplotFullPath, 
+                                    AutoOpenPlot, 
+                                    NumberOfTests, 
+                                    ComputeAverageValueWith, 
+                                    CutLowerHigherAverageValue, 
+                                    ArrayInitialSize, 
+                                    ArrayGrowFactorType, 
+                                    ArrayGrowFactor, 
+                                    ArrayMinRandomNumber, 
+                                    ArrayMaxRandomNumber, 
+                                    ArrayNumberGrowFactorType, 
+                                    ArrayNumberGrowFactor, 
+                                    ArrayRandomBetweenValues);
         }
         #endregion
 

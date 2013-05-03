@@ -6,9 +6,9 @@
  */
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace eda12131190311906
@@ -18,6 +18,7 @@ namespace eda12131190311906
     /// </summary>
     static class Program
     {
+        #region Constants
         public const string PROJECT_URL = "https://code.google.com/p/eda12131190311906";
         /// <summary>
         /// All algorithms avaliable to run
@@ -33,6 +34,9 @@ namespace eda12131190311906
 															"Comb",
 															"Selection",
 															"Shell",};
+        #endregion
+
+        #region Properties
         /// <summary>
         /// GNUPLOT Graf generator file
         /// </summary>
@@ -42,8 +46,9 @@ namespace eda12131190311906
         /// Collection of reports
         /// </summary>
         public static List<Report> Reports { get; private set; }
+        #endregion
 
-
+        #region Constructor
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -51,13 +56,14 @@ namespace eda12131190311906
         static void Main()
         {
             Setup();
-            GenerateGnuplotFiles();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmMain());
             ApplicationSettings.Save();
         }
+        #endregion
 
+        #region Setup
         /// <summary>
         /// Run common tasks to setup the application
         /// </summary>
@@ -76,7 +82,9 @@ namespace eda12131190311906
                 ApplicationSettings.Instance.GnuplotFullPath = "gnuplot";
             }
         }
+        #endregion
 
+        #region Get report method
         /// <summary>
         /// Get a report by name
         /// </summary>
@@ -86,7 +94,9 @@ namespace eda12131190311906
         {
             return Reports.FirstOrDefault(report => report.Name.Equals(name));
         }
+        #endregion
 
+        #region Run algorithm methods
         /// <summary>
         /// Run a algorithm and log execution
         /// </summary>
@@ -117,17 +127,51 @@ namespace eda12131190311906
 
                     var methodparams = new object[] { intA };
 
-                    var profiler = report.AddProfiler("Sort " + count);
-                    m.Invoke(null, methodparams);
-                    profiler.Stop();
+                    if (ApplicationSettings.Instance.ComputeAverageValueWith <= 1)
+                    {
+                        var profiler = report.AddProfiler("Sort " + count);
+                        m.Invoke(null, methodparams);
+                        profiler.Stop();
+                    }
+                    else
+                    {
+                        var avgList = new List<StopwatchEx>(ApplicationSettings.Instance.ComputeAverageValueWith);
+                        for (int i = 0; i < ApplicationSettings.Instance.ComputeAverageValueWith; i++)
+                        {
+                            StopwatchEx stopwatch = StopwatchEx.StartNew();
+                            m.Invoke(null, methodparams);
+                            stopwatch.Stop();
+                            avgList.Add(stopwatch);
+                        }
+                        report.AddProfiler("Sort " + count, StopwatchEx.ComputeAverage(avgList, ApplicationSettings.Instance.CutLowerHigherAverageValue));
+                    }
+                    
+                        
+                    
                     report.Comments.Add("Sorted array " +
                             count +
                             ": " +
                             SystemHelper.ArrayToString(intA));
 
-                    var profiler1 = report.AddProfiler("Sort-Sorted " + count);
-                    m.Invoke(null, methodparams);
-                    profiler1.Stop();
+                    if (ApplicationSettings.Instance.ComputeAverageValueWith <= 1)
+                    {
+                        var profiler1 = report.AddProfiler("Sort-Sorted " + count);
+                        m.Invoke(null, methodparams);
+                        profiler1.Stop();
+                    }
+                    else
+                    {
+                        var avgList = new List<StopwatchEx>(ApplicationSettings.Instance.ComputeAverageValueWith);
+                        for (int i = 0; i < ApplicationSettings.Instance.ComputeAverageValueWith; i++)
+                        {
+                            StopwatchEx stopwatch = StopwatchEx.StartNew();
+                            m.Invoke(null, methodparams);
+                            stopwatch.Stop();
+                            avgList.Add(stopwatch);
+                        }
+                        report.AddProfiler("Sort-Sorted " + count, StopwatchEx.ComputeAverage(avgList, ApplicationSettings.Instance.CutLowerHigherAverageValue));
+                    }
+
                     report.Comments.Add("Sorted-sorted array " +
                             count +
                             ": " +
@@ -139,6 +183,9 @@ namespace eda12131190311906
                 
 
                 return report;
+            }
+            catch (ThreadAbortException)
+            {
             }
             catch (Exception e)
             {
@@ -182,49 +229,6 @@ namespace eda12131190311906
         {
             return RunOneAlgorithm(classname, "Sort", A);
         }
-
-        /// <summary>
-        /// Generate Gnuplot graf files
-        /// </summary>
-        public static void GenerateGnuplotFiles()
-        {
-            try
-            {
-                if (!Directory.Exists(ApplicationSettings.Instance.ReportsPath))
-                {
-                    Directory.CreateDirectory(ApplicationSettings.Instance.ReportsPath);
-                }
-                using (TextWriter fstream = new StreamWriter(Path.Combine(ApplicationSettings.Instance.ReportsPath, GNUPLOT_GENERATOR_FILE) +
-                                                                 (SystemHelper.IsWindows() ? ".bat" : ".sh")))
-                {
-                    string gnuvar = "%GNUPLOT_PATH%";
-                    if (SystemHelper.IsWindows())
-                    {
-                        fstream.Write("@echo off\n" + 
-                                        "title \"Relatorio de grafos com GNUPLOT\"\n" +
-                                        "set GNUPLOT_PATH=\"{0}\"\n", ApplicationSettings.Instance.GnuplotFullPath);
-                    }
-                    else
-                    {
-                        fstream.Write("echo \"Relatorio de grafos com GNUPLOT\"\n" +
-                                        "GNUPLOT_PATH=\"{0}\"\n", ApplicationSettings.Instance.GnuplotFullPath);
-                        gnuvar = "$GNUPLOT_PATH";
-                    }
-                    for (int i = 0; i < ALGORTIHMS.Length; i++)
-                    {
-                        fstream.Write("echo Running {0} sort plot\n" + 
-                                        "{1} -p \"{0}.plt\"\n", ALGORTIHMS[i], gnuvar);
-                        
-                    }
-                    fstream.Write("\npause");
-
-                    fstream.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
+        #endregion
     }
 }

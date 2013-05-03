@@ -20,11 +20,14 @@ namespace eda12131190311906
     /// </summary>
     public partial class FrmMain : Form
     {
+        #region Properties
         /// <summary>
         /// Background operation timer
         /// </summary>
         public Stopwatch Stopwatcher { get; private set; }
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -64,10 +67,14 @@ namespace eda12131190311906
                 tbSaveReportsTo.Text = ApplicationSettings.Instance.ReportsPath;
                 cbAutoOpenPlots.Checked = ApplicationSettings.Instance.AutoOpenPlot;
                 nmNumberOfTests.Value = ApplicationSettings.Instance.NumberOfTests;
+                nmComputeAverageValueWith.Value = ApplicationSettings.Instance.ComputeAverageValueWith;
+                cbCutLowerHigherAvgValue.Checked = ApplicationSettings.Instance.CutLowerHigherAverageValue;
                 nmArrayInitialSize.Value = ApplicationSettings.Instance.ArrayInitialSize;
+                cbArrayGrowFactorType.SelectedIndex = ApplicationSettings.Instance.ArrayGrowFactorType == '*' ? 0 : 1;
                 nmArrayGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayGrowFactor);
                 nmArrayMinRandomNumber.Value = ApplicationSettings.Instance.ArrayMinRandomNumber;
                 nmArrayMaxRandomNumber.Value = ApplicationSettings.Instance.ArrayMaxRandomNumber;
+                cbArrayNumberGrowFactorType.SelectedIndex = ApplicationSettings.Instance.ArrayNumberGrowFactorType == '*' ? 0 : 1;
                 nmArrayNumberGrowFactor.Value = Convert.ToDecimal(ApplicationSettings.Instance.ArrayNumberGrowFactor);
                 cbArrayRandomBetweenValues.Checked = ApplicationSettings.Instance.ArrayRandomBetweenValues;
             }
@@ -76,7 +83,11 @@ namespace eda12131190311906
             }
             
         }
+        #endregion
 
+        #region Events
+
+        #region Button click
         /// <summary>
         /// Triggerd when any button get clicked
         /// </summary>
@@ -169,6 +180,8 @@ namespace eda12131190311906
                 {
                     return;
                 }
+                ApplicationSettings.Save();
+                Report.GenerateGnuplotFiles();
                 gbOptions.Enabled = false;
                 btnStart.Enabled = false;
                 btnStop.Enabled = btnPause.Enabled = true;
@@ -200,13 +213,15 @@ namespace eda12131190311906
                 {
                     return;
                 }
-                bgWorker.CancelAsync();
+                bgWorker.AbortCancel();
                 btnPause.Enabled = btnStop.Enabled = false;
                 btnPause.Text = "Pause";
                 lbStatus.Text += @" -> Cancel Requested -> Waiting for finish";
             }
         }
+        #endregion
 
+        #region Value Changed
         /// <summary>
         /// Triggered when any text change inside a registed component
         /// </summary>
@@ -229,9 +244,26 @@ namespace eda12131190311906
                 ApplicationSettings.Instance.NumberOfTests = Convert.ToByte(nmNumberOfTests.Value);
                 return;
             }
+            if (sender == nmComputeAverageValueWith)
+            {
+                ApplicationSettings.Instance.ComputeAverageValueWith = Convert.ToByte(nmComputeAverageValueWith.Value);
+                cbCutLowerHigherAvgValue.Enabled = nmComputeAverageValueWith.Value >= 3;
+                return;
+            }
+            if (sender == cbCutLowerHigherAvgValue)
+            {
+                ApplicationSettings.Instance.CutLowerHigherAverageValue = cbCutLowerHigherAvgValue.Checked;
+                return;
+            }
             if (sender == nmArrayInitialSize)
             {
                 ApplicationSettings.Instance.ArrayInitialSize = Convert.ToUInt32(nmArrayInitialSize.Value);
+                return;
+            }
+            if (sender == cbArrayGrowFactorType)
+            {
+                ApplicationSettings.Instance.ArrayGrowFactorType =
+                    Convert.ToChar(cbArrayGrowFactorType.SelectedItem.ToString().Substring(0, 1));
                 return;
             }
             if (sender == nmArrayGrowFactor)
@@ -249,12 +281,21 @@ namespace eda12131190311906
                 ApplicationSettings.Instance.ArrayMaxRandomNumber = Convert.ToUInt32(nmArrayMaxRandomNumber.Value);
                 return;
             }
+            if (sender == cbArrayNumberGrowFactorType)
+            {
+                ApplicationSettings.Instance.ArrayNumberGrowFactorType =
+                    Convert.ToChar(cbArrayNumberGrowFactorType.SelectedItem.ToString().Substring(0, 1));
+                return;
+            }
             if (sender == nmArrayNumberGrowFactor)
             {
                 ApplicationSettings.Instance.ArrayNumberGrowFactor = Convert.ToDouble(nmArrayNumberGrowFactor.Value);
                 return;
             }
         }
+        #endregion
+
+        #region Background Worker
 
         /// <summary>
         /// Triggered when background worker start the tasks
@@ -268,23 +309,40 @@ namespace eda12131190311906
                 bgWorker.ReportProgress(1, "Generating arrays");
                 var testArray = new List<int[]>(ApplicationSettings.Instance.NumberOfTests);
                 double size = ApplicationSettings.Instance.ArrayInitialSize;
-                int minvalue = Math.Max(100, Convert.ToInt32(ApplicationSettings.Instance.ArrayMinRandomNumber));  
+                int minvalue = Math.Max(100, Convert.ToInt32(ApplicationSettings.Instance.ArrayMinRandomNumber));
                 double maxvalue = ApplicationSettings.Instance.ArrayRandomBetweenValues
-                                      ? Math.Min(Convert.ToInt32(ApplicationSettings.Instance.ArrayMaxRandomNumber), int.MaxValue)
+                                      ? Math.Min(Convert.ToInt32(ApplicationSettings.Instance.ArrayMaxRandomNumber),
+                                                 int.MaxValue)
                                       : minvalue;
 
                 for (int i = 1; i <= ApplicationSettings.Instance.NumberOfTests; i++)
                 {
                     if (size <= 0)
                     {
-                        size = i * 10;
+                        size = i*10;
                     }
-                                     
-                    testArray.Add(SystemHelper.RandomIntegerArray(Convert.ToInt32(size), minvalue, Convert.ToInt32(maxvalue)));
-                    size *= ApplicationSettings.Instance.ArrayGrowFactor;
+
+                    testArray.Add(SystemHelper.RandomIntegerArray(Convert.ToInt32(size), minvalue,
+                                                                  Convert.ToInt32(maxvalue)));
+                    if (ApplicationSettings.Instance.ArrayGrowFactorType == '+')
+                    {
+                        size += ApplicationSettings.Instance.ArrayGrowFactor;
+                    }
+                    else
+                    {
+                        size *= ApplicationSettings.Instance.ArrayGrowFactor;
+                    }
+
                     if (!ApplicationSettings.Instance.ArrayRandomBetweenValues)
                     {
-                        maxvalue *= ApplicationSettings.Instance.ArrayNumberGrowFactor;
+                        if (ApplicationSettings.Instance.ArrayNumberGrowFactorType == '+')
+                        {
+                            maxvalue += ApplicationSettings.Instance.ArrayNumberGrowFactor;
+                        }
+                        else
+                        {
+                            maxvalue *= ApplicationSettings.Instance.ArrayNumberGrowFactor;
+                        }
                     }
                 }
                 var testArrayCopy = SystemHelper.CloneListIntArray(testArray);
@@ -299,17 +357,22 @@ namespace eda12131190311906
                         Thread.Sleep(1000);
                     }
                     string name = cblAlgorithms.CheckedItems[i].ToString();
-                    bgWorker.ReportProgress(i * 100 / cblAlgorithms.CheckedItems.Count + 2, string.Format("Executing {0}/{1} {2}", (i+1), cblAlgorithms.CheckedItems.Count, name));
+                    bgWorker.ReportProgress(i*100/cblAlgorithms.CheckedItems.Count + 2,
+                                            string.Format("Executing {0}/{1} {2}", (i + 1),
+                                                          cblAlgorithms.CheckedItems.Count, name));
                     Report report = Program.RunOneAlgorithm(name, testArrayCopy);
                     testArrayCopy = SystemHelper.CloneListIntArray(testArray);
                 }
+            }
+            catch (ThreadAbortException)
+            {
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
-            
+
+
         }
 
         /// <summary>
@@ -329,6 +392,9 @@ namespace eda12131190311906
                 pbLoad.Value = e.ProgressPercentage;
                 pbLoad.Text = e.UserState.ToString();
                 lbStatus.Text = string.Format("Status: {0}", e.UserState);
+            }
+            catch (ThreadAbortException)
+            {
             }
             catch (Exception ex)
             {
@@ -357,7 +423,9 @@ namespace eda12131190311906
                 lbStatus.Text += @" -> Cancelled";
             }
         }
+        #endregion
 
+        #region Timer clock
         /// <summary>
         /// Triggered when timer tick
         /// </summary>
@@ -375,6 +443,8 @@ namespace eda12131190311906
                 lbTimeElapsed.Text += @" (Done)";
             }
         }
+        #endregion
 
+        #endregion
     }
 }
