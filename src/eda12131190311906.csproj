@@ -117,8 +117,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)..\bin\"
-copy /Y "$(TargetPath)" "$(SolutionDir)..\bin\$(ProjectName).exe"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">mkdir "$(SolutionDir)..\bin\"
+copy /Y "$(TargetPath)" "$(SolutionDir)..\bin\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Windows_NT' ">mkdir -m 777 "$(SolutionDir)..\bin\"
+cp -f "$(TargetPath)" "$(SolutionDir)..\bin\$(TargetFileName)"
+chmod -f -R 777 "$(SolutionDir)..\bin"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
