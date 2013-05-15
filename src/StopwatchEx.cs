@@ -32,7 +32,7 @@ namespace eda12131190311906
         /// </summary>
         /// 
         /// <returns>
-        /// A read-only long integer representing the total number of milliseconds measured by the current instance.
+        /// A read-only double representing the total number of milliseconds measured by the current instance.
         /// </returns>
         /// <filterpriority>1</filterpriority>
         public new double ElapsedMilliseconds
@@ -146,8 +146,9 @@ namespace eda12131190311906
                 return stopwatch;
             }
 
-            long average = list.Sum(stopwatchEx => stopwatchEx.ElapsedTicks) / list.Count;
-            stopwatch.EditableElapsed = new TimeSpan(average);
+            long averageTicks = Convert.ToInt64(list.Average(timeSpan => timeSpan.ElapsedTicks));
+            stopwatch.EditableElapsed = TimeSpan.FromTicks(averageTicks);
+
             return stopwatch;
         }
     }

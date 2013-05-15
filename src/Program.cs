@@ -6,6 +6,8 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -19,11 +21,12 @@ namespace eda12131190311906
     static class Program
     {
         #region Constants
-        public const string PROJECT_URL = "https://code.google.com/p/eda12131190311906";
+        public const string PROJECT_URL         = "https://code.google.com/p/eda12131190311906";
+        public static readonly string[] PROJECT_AUTHORS = new[] { "Tiago Conceição Nº11903", "Gonçalo Lampreia Nº11906" };
         /// <summary>
         /// All algorithms avaliable to run
         /// </summary>
-        public static string[] ALGORTIHMS = new[]            {"Insertion",
+        public static readonly string[] ALGORTIHMS = new[]  {"Insertion",
 															"Bubble",
 															"Heap",
 															"Merge",
@@ -46,6 +49,8 @@ namespace eda12131190311906
         /// Collection of reports
         /// </summary>
         public static List<Report> Reports { get; private set; }
+
+        public static Logging Logging { get; private set; }
         #endregion
 
         #region Constructor
@@ -58,6 +63,7 @@ namespace eda12131190311906
             Setup();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Logging = new Logging();
             Application.Run(new FrmMain());
             ApplicationSettings.Save();
         }
@@ -102,12 +108,17 @@ namespace eda12131190311906
         /// </summary>
         /// <param name="classname">Class name</param>
         /// <param name="method">Method name (sort)</param>
-        /// <param name="A">List with arrays to sort</param>
+        /// <param name="intList">List with arrays to sort</param>
         /// <returns>Report log</returns>
-        public static Report RunOneAlgorithm(string classname, string method, List<int[]> A)
+        public static Report RunOneAlgorithm(string classname, string method, List<int[]> intList)
         {
             try
             {
+                GC.Collect();
+                Logging.WriteLine("################################");
+                Logging.WriteLine(string.Format("Algorithm: {0}", classname));
+                Logging.WriteLine(string.Format("Arrays to test: {0}", intList.Count));
+                Logging.WriteLine("################################");
                 Type t = Type.GetType(string.Format("eda12131190311906.{0}", classname));
                 if (t == null)
                 {
@@ -115,69 +126,101 @@ namespace eda12131190311906
                 }
                 MethodInfo m = t.GetMethod(method, new[] { typeof(int[]) });
               
-                Report report = new Report(classname);
-                report.PlotColumns.Add("Sort");
-                report.PlotColumns.Add("Sort-sorted");
+                Report report = new Report(classname)
+                                    {
+                                        XAxisLabel = "Array number of elements",
+                                        YAxisLabel = "Execution Time (ms)"
+                                    };
+                report.PlotTitles.Add("Sort");
+                report.PlotTitles.Add("Sort-sorted");
                 Reports.Add(report);
                 int count = 1;
-                foreach (var intA in A)
+                foreach (var intA in intList)
                 {
+                    var plotLine = new Report.PlotLine(intA.Length.ToString(CultureInfo.InvariantCulture));
+                    report.PlotLines.Add(plotLine);
+
+                    Logging.WriteLine(string.Format("Array nº{0} with {1} elements", count, intA.Length));
+                    var A = (int[])intA.Clone();
                     report.Comments.Add("");
-                    report.Comments.Add("Array(" + intA.Length + ") " + count + ": " + SystemHelper.ArrayToString(intA));
+                    report.Comments.Add("Array(" + A.Length + ") " + count + ": " + SystemHelper.ArrayToString(A));
 
-                    var methodparams = new object[] { intA };
-
+                    Logging.Write("Sorting");
+                    var methodparams = new object[] { A };
                     if (ApplicationSettings.Instance.ComputeAverageValueWith <= 1)
                     {
-                        var profiler = report.AddProfiler("Sort " + count);
+                        var profiler = plotLine.AddProfiler();
                         m.Invoke(null, methodparams);
                         profiler.Stop();
+                        Logging.WriteLine(string.Format(", Sorted after {0}ms", profiler.ElapsedMilliseconds));
                     }
                     else
                     {
+                        Logging.WriteLine();
+                        Logging.WriteLine(string.Format("------Computing Average for {0} executions------", ApplicationSettings.Instance.ComputeAverageValueWith));
                         var avgList = new List<StopwatchEx>(ApplicationSettings.Instance.ComputeAverageValueWith);
                         for (int i = 0; i < ApplicationSettings.Instance.ComputeAverageValueWith; i++)
                         {
+                            Logging.Write(string.Format("{0}: ", i));
+                            A = (int[])intA.Clone();
+                            methodparams = new object[] { A };
                             StopwatchEx stopwatch = StopwatchEx.StartNew();
                             m.Invoke(null, methodparams);
                             stopwatch.Stop();
+                            Logging.WriteLine(string.Format("{0}ms", stopwatch.ElapsedMilliseconds));
                             avgList.Add(stopwatch);
                         }
-                        report.AddProfiler("Sort " + count, StopwatchEx.ComputeAverage(avgList, ApplicationSettings.Instance.CutLowerHigherAverageValue));
+                        var averageStopWatch = StopwatchEx.ComputeAverage(avgList,
+                                                                    ApplicationSettings.Instance
+                                                                                       .CutLowerHigherAverageValue);
+                        plotLine.AddProfiler(averageStopWatch);
+                        Logging.WriteLine(string.Format("-----------Computed Average: {0}ms-----------", averageStopWatch.ElapsedMilliseconds));
                     }
-                    
-                        
-                    
+
+
+                    Logging.Write("Sorting sorted array");
                     report.Comments.Add("Sorted array " +
                             count +
                             ": " +
-                            SystemHelper.ArrayToString(intA));
+                            SystemHelper.ArrayToString(A));
 
                     if (ApplicationSettings.Instance.ComputeAverageValueWith <= 1)
                     {
-                        var profiler1 = report.AddProfiler("Sort-Sorted " + count);
+                        var profiler1 = plotLine.AddProfiler();
                         m.Invoke(null, methodparams);
                         profiler1.Stop();
+                        Logging.WriteLine(string.Format(", Sorted after {0}ms", profiler1.ElapsedMilliseconds));
                     }
                     else
                     {
+                        Logging.WriteLine();
+                        Logging.WriteLine(string.Format("------Computing Average for {0} executions------", ApplicationSettings.Instance.ComputeAverageValueWith));
                         var avgList = new List<StopwatchEx>(ApplicationSettings.Instance.ComputeAverageValueWith);
                         for (int i = 0; i < ApplicationSettings.Instance.ComputeAverageValueWith; i++)
                         {
+                            Logging.Write(string.Format("{0}: ", i));
                             StopwatchEx stopwatch = StopwatchEx.StartNew();
                             m.Invoke(null, methodparams);
                             stopwatch.Stop();
+                            Logging.WriteLine(string.Format("{0}ms", stopwatch.ElapsedMilliseconds));
                             avgList.Add(stopwatch);
                         }
-                        report.AddProfiler("Sort-Sorted " + count, StopwatchEx.ComputeAverage(avgList, ApplicationSettings.Instance.CutLowerHigherAverageValue));
+                        var averageStopWatch = StopwatchEx.ComputeAverage(avgList,
+                                                                    ApplicationSettings.Instance
+                                                                                       .CutLowerHigherAverageValue);
+                        Logging.WriteLine(string.Format("-----------Computed Average: {0}ms-----------", averageStopWatch.ElapsedMilliseconds));
+                        plotLine.AddProfiler(averageStopWatch);
                     }
 
                     report.Comments.Add("Sorted-sorted array " +
                             count +
                             ": " +
-                            SystemHelper.ArrayToString(intA));
+                            SystemHelper.ArrayToString(A));
                     count++;
                 }
+                Logging.WriteLine("################################");
+                Logging.WriteLine(string.Format("End of {0} algorithmn", classname));
+                Logging.WriteLine("################################");
 
                 report.WriteToFile();
                 

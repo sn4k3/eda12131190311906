@@ -194,6 +194,118 @@
             </summary>
             <param name="A">Array to sort</param>
         </member>
+        <member name="T:eda12131190311906.Logging">
+            <summary>
+            Loggin class, provide a log model to the application
+            </summary>
+        </member>
+        <member name="F:eda12131190311906.Logging._log">
+            <summary>
+            Log event handler
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Logging.OnLog(eda12131190311906.Logging.LogEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:eda12131190311906.Logging.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Logging.Write(System.String)">
+            <summary>
+            Write to log
+            </summary>
+            <param name="text">Text to write</param>
+        </member>
+        <member name="M:eda12131190311906.Logging.WriteLine">
+            <summary>
+            Write a new line to log
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Logging.WriteLine(System.String)">
+            <summary>
+            Write to log
+            </summary>
+            <param name="text">Text to write</param>
+        </member>
+        <member name="M:eda12131190311906.Logging.Clear">
+            <summary>
+            Clear log text
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Logging.WriteToFile(System.String)">
+            <summary>
+            Write log to a default file (debug.log)
+            </summary>
+            <param name="path">Path to save file</param>
+            <returns>True if file write successfully, ortherwise false</returns>
+        </member>
+        <member name="M:eda12131190311906.Logging.WriteToFile">
+            <summary>
+            Write log to a default file (debug.log)
+            </summary>
+            <returns>True if file write successfully, ortherwise false</returns>
+        </member>
+        <member name="M:eda12131190311906.Logging.IsEmpty">
+            <summary>
+            Check if log is empty or have anything in
+            </summary>
+            <returns>True if empty, otherwise false</returns>
+        </member>
+        <member name="E:eda12131190311906.Logging.Log">
+            <summary>
+            Log event, raised when something writes to log
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Logging.Header">
+            <summary>
+            Gets or sets the log header text
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Logging.LogText">
+            <summary>
+            Gets the string holding log
+            </summary>
+        </member>
+        <member name="T:eda12131190311906.Logging.LogEventArgs">
+            <summary>
+            Log event hander class
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Logging.LogEventArgs.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="text">Text</param>
+            <param name="isWriteLine">Is text write using WriteLine</param>
+            <param name="cleared">Is text cleared and set to empty</param>
+        </member>
+        <member name="P:eda12131190311906.Logging.LogEventArgs.AddedText">
+            <summary>
+            New text added to log
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Logging.LogEventArgs.IsWriteLine">
+            <summary>
+            Is text write using WriteLine
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Logging.LogEventArgs.Cleared">
+            <summary>
+            Is text cleared and set to empty
+            </summary>
+        </member>
+        <member name="T:eda12131190311906.Logging.LogEventHandler">
+            <summary>
+            Log event handler delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="T:eda12131190311906.Radix">
             <summary>
             Radix Sort Algorithm
@@ -269,6 +381,13 @@
             </summary>
             <param name="sender">Object who trigger event</param>
             <param name="e">Event arguments</param>
+        </member>
+        <member name="M:eda12131190311906.FrmMain.LoggingOnLog(System.Object,eda12131190311906.Logging.LogEventArgs)">
+            <summary>
+            Log to application
+            </summary>
+            <param name="sender">Sender</param>
+            <param name="e">Event args</param>
         </member>
         <member name="F:eda12131190311906.FrmMain.components">
             <summary>
@@ -421,7 +540,7 @@
             </summary>
             <param name="classname">Class name</param>
             <param name="method">Method name (sort)</param>
-            <param name="A">List with arrays to sort</param>
+            <param name="intList">List with arrays to sort</param>
             <returns>Report log</returns>
         </member>
         <member name="M:eda12131190311906.Program.RunOneAlgorithm(System.String,System.String,System.Int32[])">
@@ -481,7 +600,7 @@
             <param name="A">Array to sort</param>
             <param name="p">Start index</param>
             <param name="r">End index</param>
-            <returns>Number of randomized partitions</returns>
+            <returns>Number of partitions</returns>
         </member>
         <member name="M:eda12131190311906.Quick.RandomizedSort(System.Int32[],System.Int32,System.Int32)">
             <summary>
@@ -525,46 +644,18 @@
             Report algorithm execution to file and grafs
             </summary>
         </member>
-        <member name="F:eda12131190311906.Report._profilers">
-            <summary>
-            Collection of profilers
-            </summary>
-        </member>
         <member name="M:eda12131190311906.Report.#ctor(System.String)">
             <summary>
             Constructor
             </summary>
             <param name="name">Report name</param>
         </member>
-        <member name="M:eda12131190311906.Report.AddProfiler(System.String,eda12131190311906.StopwatchEx)">
+        <member name="M:eda12131190311906.Report.GetPlotLine(System.String)">
             <summary>
-            Add a profiler
+            Get plot line based on X Axis value
             </summary>
-            <param name="name">Profiler name</param>
-            <param name="profiler">Profiler to add</param>
-            <returns>True if added, otherwise false (Duplicated name)</returns>
-        </member>
-        <member name="M:eda12131190311906.Report.AddProfiler(System.String,System.Boolean)">
-            <summary>
-            Add a profiler
-            </summary>
-            <param name="name">Profiler name</param>
-            <param name="run">Start profiling or not</param>
-            <returns>Profiler added to map</returns>
-        </member>
-        <member name="M:eda12131190311906.Report.AddProfiler(System.String)">
-            <summary>
-            Add a profiler 
-            </summary>
-            <param name="name">Profiler name</param>
-            <returns>Profiler added to map</returns>
-        </member>
-        <member name="M:eda12131190311906.Report.GetProfiler(System.String)">
-            <summary>
-            Get a profiler
-            </summary>
-            <param name="name">Profiler name</param>
-            <returns>Profiler, null if not exists</returns>
+            <param name="xAxis">X Axis value</param>
+            <returns>PlotLine holding line data</returns>
         </member>
         <member name="M:eda12131190311906.Report.WriteToFile(System.String)">
             <summary>
@@ -577,6 +668,13 @@
             Write reports to a file
             </summary>
         </member>
+        <member name="M:eda12131190311906.Report.BuildMaster(System.Collections.Generic.List{eda12131190311906.Report})">
+            <summary>
+            Build a master report holding and comparing all reports
+            </summary>
+            <param name="reports">List with all reports to include</param>
+            <returns>Master report</returns>
+        </member>
         <member name="M:eda12131190311906.Report.GenerateGnuplotFiles">
             <summary>
             Generate Gnuplot graf files
@@ -584,7 +682,17 @@
         </member>
         <member name="P:eda12131190311906.Report.Name">
             <summary>
-            Report name
+            Gets or sets the report name
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.XAxisLabel">
+            <summary>
+            Gets or sets the X axis name / data name
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.YAxisLabel">
+            <summary>
+             Gets or sets the Y axis name / data name
             </summary>
         </member>
         <member name="P:eda12131190311906.Report.Comments">
@@ -592,9 +700,60 @@
             Comments to write on file header
             </summary>
         </member>
-        <member name="P:eda12131190311906.Report.PlotColumns">
+        <member name="P:eda12131190311906.Report.PlotTitles">
             <summary>
-            Plot columns text
+            Plot data titles
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.PlotLines">
+            <summary>
+            Plot lines holding all data
+            </summary>
+        </member>
+        <member name="T:eda12131190311906.Report.PlotLine">
+            <summary>
+            Report item class, represents a single line on gnuplot files
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Report.PlotLine.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:eda12131190311906.Report.PlotLine.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="xAxis">X axis name for this line</param>
+        </member>
+        <member name="M:eda12131190311906.Report.PlotLine.AddProfiler(eda12131190311906.StopwatchEx)">
+            <summary>
+            Add a profiler
+            </summary>
+            <param name="profiler">Profiler to add</param>
+            <returns>True if added, otherwise false (Duplicated name)</returns>
+        </member>
+        <member name="M:eda12131190311906.Report.PlotLine.AddProfiler(System.Boolean)">
+            <summary>
+            Add a profiler
+            </summary>
+            <param name="run">Start profiling or not</param>
+            <returns>Profiler added to map</returns>
+        </member>
+        <member name="M:eda12131190311906.Report.PlotLine.AddProfiler">
+            <summary>
+            Add a profiler and run
+            </summary>
+            <returns>Profiler added to map</returns>
+        </member>
+        <member name="P:eda12131190311906.Report.PlotLine.XAxis">
+            <summary>
+            X axis value for this line of results, 1st column on file
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Report.PlotLine.Columns">
+            <summary>
+            Line columns data, each column represents a <see cref="T:eda12131190311906.StopwatchEx"/> holding a <see cref="T:System.TimeSpan"/> with execution time
             </summary>
         </member>
         <member name="T:eda12131190311906.Selection">
@@ -684,7 +843,7 @@
             </summary>
             
             <returns>
-            A read-only long integer representing the total number of milliseconds measured by the current instance.
+            A read-only double representing the total number of milliseconds measured by the current instance.
             </returns>
             <filterpriority>1</filterpriority>
         </member>
@@ -753,6 +912,15 @@
             <param name="list"></param>
             <returns></returns>
         </member>
+        <member name="M:eda12131190311906.SystemHelper.ArrayToString``1(``0[],System.Int32)">
+            <summary>
+            Convert an array to string
+            </summary>
+            <typeparam name="T">Array class</typeparam>
+            <param name="list">List with arrays</param>
+            <param name="limit">Elements limit to output to string</param>
+            <returns>A formated string</returns>
+        </member>
         <member name="M:eda12131190311906.SystemHelper.OpenLink(System.String)">
             <summary>
             Open website link
@@ -773,6 +941,11 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:eda12131190311906.Properties.Resources.bug">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
         <member name="P:eda12131190311906.Properties.Resources.deselect">

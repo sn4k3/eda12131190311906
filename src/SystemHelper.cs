@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace eda12131190311906
 {
@@ -103,9 +104,32 @@ namespace eda12131190311906
         /// <returns></returns>
         public static string ArrayToString<T>(T[] list)
         {
-            string result = list.Aggregate("[", (current, element) => current + (element.ToString() + ", "));
+            return ArrayToString(list, 20000);
+        }
+
+        /// <summary>
+        /// Convert an array to string
+        /// </summary>
+        /// <typeparam name="T">Array class</typeparam>
+        /// <param name="list">List with arrays</param>
+        /// <param name="limit">Elements limit to output to string</param>
+        /// <returns>A formated string</returns>
+        public static string ArrayToString<T>(T[] list, int limit)
+        {
+            /*string result = list.Aggregate("[", (current, element) => current + (element.ToString() + ", "));
             result = result.Remove(result.Length - 2, 2);
-            result += "]";
+            result += "]";*/
+            string result = "[";
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (i >= limit)
+                {
+                    result += "..., ";
+                    break;
+                }
+                result += string.Format("{0}, ", list[i]);
+            }
+            result = string.Format("{0}]", result.Remove(result.Length - 2, 2));
             return result;
         }
 

@@ -139,12 +139,12 @@ namespace eda12131190311906
             ComputeAverageValueWith = 5;
             CutLowerHigherAverageValue = true;
 
-            ArrayInitialSize = 2;
-            ArrayGrowFactor = 2;
-            ArrayGrowFactorType = '*';
+            ArrayInitialSize = 2500;
+            ArrayGrowFactor = 2500;
+            ArrayGrowFactorType = '+';
 
             ArrayMinRandomNumber = 100;
-            ArrayMaxRandomNumber = ushort.MaxValue;
+            ArrayMaxRandomNumber = ushort.MaxValue * 10;
             ArrayNumberGrowFactorType = '*';
             ArrayNumberGrowFactor = 5.0;
             ArrayRandomBetweenValues = true;

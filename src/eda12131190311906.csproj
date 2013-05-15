@@ -42,7 +42,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -55,6 +54,7 @@
     <Compile Include="Bubble.cs" />
     <Compile Include="Bucket.cs" />
     <Compile Include="Comb.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Radix.cs" />
     <Compile Include="Counting.cs" />
     <Compile Include="FrmMain.cs">
@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="images\16\bug.png" />
     <None Include="images\32\stop.png" />
     <None Include="images\32\pause.png" />
     <None Include="images\32\play.png" />

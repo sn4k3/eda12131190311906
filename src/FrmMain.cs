@@ -81,7 +81,28 @@ namespace eda12131190311906
             catch
             {
             }
+
+            Program.Logging.Log += LoggingOnLog;
             
+        }
+
+        #endregion
+
+        #region Overrides
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Program.Logging.Header = "--------------------------------------------" + Environment.NewLine +
+                                   string.Format("Application started: {0}{1}", DateTime.Now, Environment.NewLine) +
+                                   "Developed by:\n";
+            foreach (var author in Program.PROJECT_AUTHORS)
+            {
+                Program.Logging.Header += string.Format("{0}{1}", author, Environment.NewLine);
+            }
+            Program.Logging.Header += Program.PROJECT_URL;
+            Program.Logging.Header += string.Format("{0}--------------------------------------------{0}{0}", Environment.NewLine);
+
+            rtbLog.Text = Program.Logging.Header;
         }
         #endregion
 
@@ -118,6 +139,16 @@ namespace eda12131190311906
                     cblAlgorithms.SetItemChecked(i, !cblAlgorithms.GetItemChecked(i));
                 }
                 return;
+            }
+            if (sender == btnViewLog)
+            {
+                if (bgWorker.IsBusy)
+                {
+                    return;
+                }
+
+                cblAlgorithms.Visible = !cblAlgorithms.Visible;
+                btnViewLog.Text = cblAlgorithms.Visible ? "View &Log" : "Hide &Log";
             }
 
             if (sender == btnSearchGnuplotExe)
@@ -187,6 +218,8 @@ namespace eda12131190311906
                 btnStop.Enabled = btnPause.Enabled = true;
                 pbLoad.Value = 0;
                 pbLoad.Text = @"Starting";
+                Program.Logging.Clear();
+                tsAlgortimsBar.Enabled = cblAlgorithms.Visible = false;
                 Stopwatcher.Reset();
                 Stopwatcher.Start();
                 tmClock.Start();
@@ -306,6 +339,7 @@ namespace eda12131190311906
         {
             try
             {
+                var reports = new List<Report>();
                 bgWorker.ReportProgress(1, "Generating arrays");
                 var testArray = new List<int[]>(ApplicationSettings.Instance.NumberOfTests);
                 double size = ApplicationSettings.Instance.ArrayInitialSize;
@@ -361,8 +395,11 @@ namespace eda12131190311906
                                             string.Format("Executing {0}/{1} {2}", (i + 1),
                                                           cblAlgorithms.CheckedItems.Count, name));
                     Report report = Program.RunOneAlgorithm(name, testArrayCopy);
+                    reports.Add(report);
                     testArrayCopy = SystemHelper.CloneListIntArray(testArray);
                 }
+                Report masterReport = Report.BuildMaster(reports);
+                masterReport.WriteToFile();
             }
             catch (ThreadAbortException)
             {
@@ -410,8 +447,7 @@ namespace eda12131190311906
         /// <param name="e">Event arguments</param>
         private void BgWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            gbOptions.Enabled = true;
-            btnStart.Enabled = true;
+            tsAlgortimsBar.Enabled = btnStart.Enabled = gbOptions.Enabled = true;
             btnStop.Enabled = btnPause.Enabled = false;
             btnPause.Text = @"Pause";
             pbLoad.Value = 100;
@@ -422,6 +458,8 @@ namespace eda12131190311906
             {
                 lbStatus.Text += @" -> Cancelled";
             }
+            cblAlgorithms.Visible = true;
+            Program.Logging.WriteToFile();
         }
         #endregion
 
@@ -442,6 +480,34 @@ namespace eda12131190311906
             {
                 lbTimeElapsed.Text += @" (Done)";
             }
+        }
+        #endregion
+
+        #region Logs
+        /// <summary>
+        /// Log to application
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private void LoggingOnLog(object sender, Logging.LogEventArgs e)
+        {
+            if (rtbLog.InvokeRequired)
+            {
+                rtbLog.Invoke((MethodInvoker)(() => LoggingOnLog(sender, e)));
+                return;
+            }
+            if (e.Cleared)
+            {
+                rtbLog.Clear();
+                rtbLog.Text = Program.Logging.Header;
+                return;
+            }
+
+            rtbLog.Text += e.AddedText;
+
+            // Auto Scroll
+            rtbLog.SelectionStart = rtbLog.Text.Length;
+            rtbLog.ScrollToCaret();
         }
         #endregion
 

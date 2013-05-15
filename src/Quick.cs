@@ -37,7 +37,9 @@ namespace eda12131190311906
         /// <param name="A">Array to sort</param>
         public static void Sort(int[] A)
         {
-            Sort(A, 0, A.Length-1);
+            RandomizedSort(A);
+            //TailRecursiveSort(A, 0, A.Length-1);
+            //Sort(A, 0, A.Length-1);
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace eda12131190311906
         /// <param name="A">Array to sort</param>
         /// <param name="p">Start index</param>
         /// <param name="r">End index</param>
-        /// <returns>Number of randomized partitions</returns>
+        /// <returns>Number of partitions</returns>
         private static int Partition(int[] A, int p, int r) {
             int x = A[r];
             int i = p - 1;

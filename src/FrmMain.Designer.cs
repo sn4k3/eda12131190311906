@@ -32,9 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.cblAlgorithms = new System.Windows.Forms.CheckedListBox();
             this.tsAlgortimsBar = new System.Windows.Forms.ToolStrip();
-            this.btnAlgorithmsSelectAll = new System.Windows.Forms.ToolStripButton();
-            this.btnAlgorithmsDeselectAll = new System.Windows.Forms.ToolStripButton();
-            this.btnAlgorithmsInvert = new System.Windows.Forms.ToolStripButton();
             this.lbAlgorithmsSelected = new System.Windows.Forms.ToolStripLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.tbGnuplotExecutable = new System.Windows.Forms.TextBox();
@@ -61,20 +58,26 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cbAutoOpenPlots = new System.Windows.Forms.CheckBox();
-            this.btnSaveReportsTo = new System.Windows.Forms.Button();
-            this.btnSearchGnuplotExe = new System.Windows.Forms.Button();
             this.pbLoad = new System.Windows.Forms.ProgressBar();
             this.lbProjectUrl = new System.Windows.Forms.LinkLabel();
             this.lbCredits = new System.Windows.Forms.Label();
-            this.bgWorker = new AbortableBackgroundWorker();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnPause = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
             this.lbTimeElapsed = new System.Windows.Forms.Label();
             this.tmClock = new System.Windows.Forms.Timer(this.components);
             this.lbStatus = new System.Windows.Forms.Label();
             this.gbControls = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlTop = new System.Windows.Forms.Panel();
+            this.rtbLog = new System.Windows.Forms.RichTextBox();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnSaveReportsTo = new System.Windows.Forms.Button();
+            this.btnSearchGnuplotExe = new System.Windows.Forms.Button();
+            this.btnAlgorithmsSelectAll = new System.Windows.Forms.ToolStripButton();
+            this.btnAlgorithmsDeselectAll = new System.Windows.Forms.ToolStripButton();
+            this.btnAlgorithmsInvert = new System.Windows.Forms.ToolStripButton();
+            this.btnViewLog = new System.Windows.Forms.ToolStripButton();
+            this.bgWorker = new eda12131190311906.AbortableBackgroundWorker();
             this.tsAlgortimsBar.SuspendLayout();
             this.gbOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmComputeAverageValueWith)).BeginInit();
@@ -85,14 +88,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayInitialSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmNumberOfTests)).BeginInit();
             this.gbControls.SuspendLayout();
+            this.pnlTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // cblAlgorithms
             // 
             this.cblAlgorithms.CheckOnClick = true;
-            this.cblAlgorithms.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cblAlgorithms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cblAlgorithms.FormattingEnabled = true;
-            this.cblAlgorithms.Location = new System.Drawing.Point(0, 25);
+            this.cblAlgorithms.Location = new System.Drawing.Point(0, 0);
             this.cblAlgorithms.MultiColumn = true;
             this.cblAlgorithms.Name = "cblAlgorithms";
             this.cblAlgorithms.Size = new System.Drawing.Size(438, 94);
@@ -105,39 +109,13 @@
             this.btnAlgorithmsSelectAll,
             this.btnAlgorithmsDeselectAll,
             this.btnAlgorithmsInvert,
-            this.lbAlgorithmsSelected});
+            this.lbAlgorithmsSelected,
+            this.btnViewLog});
             this.tsAlgortimsBar.Location = new System.Drawing.Point(0, 0);
             this.tsAlgortimsBar.Name = "tsAlgortimsBar";
             this.tsAlgortimsBar.Size = new System.Drawing.Size(438, 25);
             this.tsAlgortimsBar.TabIndex = 1;
             this.tsAlgortimsBar.Text = "toolStrip1";
-            // 
-            // btnAlgorithmsSelectAll
-            // 
-            this.btnAlgorithmsSelectAll.Image = global::eda12131190311906.Properties.Resources.select_all;
-            this.btnAlgorithmsSelectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAlgorithmsSelectAll.Name = "btnAlgorithmsSelectAll";
-            this.btnAlgorithmsSelectAll.Size = new System.Drawing.Size(73, 22);
-            this.btnAlgorithmsSelectAll.Text = "Select &all";
-            this.btnAlgorithmsSelectAll.Click += new System.EventHandler(this.ButtonClick);
-            // 
-            // btnAlgorithmsDeselectAll
-            // 
-            this.btnAlgorithmsDeselectAll.Image = global::eda12131190311906.Properties.Resources.deselect;
-            this.btnAlgorithmsDeselectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAlgorithmsDeselectAll.Name = "btnAlgorithmsDeselectAll";
-            this.btnAlgorithmsDeselectAll.Size = new System.Drawing.Size(86, 22);
-            this.btnAlgorithmsDeselectAll.Text = "&Deselect all";
-            this.btnAlgorithmsDeselectAll.Click += new System.EventHandler(this.ButtonClick);
-            // 
-            // btnAlgorithmsInvert
-            // 
-            this.btnAlgorithmsInvert.Image = global::eda12131190311906.Properties.Resources.select_inverse;
-            this.btnAlgorithmsInvert.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAlgorithmsInvert.Name = "btnAlgorithmsInvert";
-            this.btnAlgorithmsInvert.Size = new System.Drawing.Size(107, 22);
-            this.btnAlgorithmsInvert.Text = "&Invert selection";
-            this.btnAlgorithmsInvert.Click += new System.EventHandler(this.ButtonClick);
             // 
             // lbAlgorithmsSelected
             // 
@@ -530,26 +508,6 @@
             this.cbAutoOpenPlots.UseVisualStyleBackColor = false;
             this.cbAutoOpenPlots.CheckedChanged += new System.EventHandler(this.ButtonClick);
             // 
-            // btnSaveReportsTo
-            // 
-            this.btnSaveReportsTo.Image = global::eda12131190311906.Properties.Resources.open_file;
-            this.btnSaveReportsTo.Location = new System.Drawing.Point(408, 44);
-            this.btnSaveReportsTo.Name = "btnSaveReportsTo";
-            this.btnSaveReportsTo.Size = new System.Drawing.Size(24, 22);
-            this.btnSaveReportsTo.TabIndex = 10;
-            this.btnSaveReportsTo.UseVisualStyleBackColor = true;
-            this.btnSaveReportsTo.Click += new System.EventHandler(this.ButtonClick);
-            // 
-            // btnSearchGnuplotExe
-            // 
-            this.btnSearchGnuplotExe.Image = global::eda12131190311906.Properties.Resources.open_file;
-            this.btnSearchGnuplotExe.Location = new System.Drawing.Point(408, 18);
-            this.btnSearchGnuplotExe.Name = "btnSearchGnuplotExe";
-            this.btnSearchGnuplotExe.Size = new System.Drawing.Size(24, 22);
-            this.btnSearchGnuplotExe.TabIndex = 6;
-            this.btnSearchGnuplotExe.UseVisualStyleBackColor = true;
-            this.btnSearchGnuplotExe.Click += new System.EventHandler(this.ButtonClick);
-            // 
             // pbLoad
             // 
             this.pbLoad.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -576,52 +534,6 @@
             this.lbCredits.Size = new System.Drawing.Size(138, 39);
             this.lbCredits.TabIndex = 17;
             this.lbCredits.Text = "Developed by:\r\nTiago Conceição Nº11903\r\nGonçalo Lampreia Nº11906";
-            // 
-            // bgWorker
-            // 
-            this.bgWorker.WorkerReportsProgress = true;
-            this.bgWorker.WorkerSupportsCancellation = true;
-            this.bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgWorkerDoWork);
-            this.bgWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BgWorkerProgressChanged);
-            this.bgWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerRunWorkerCompleted);
-            // 
-            // btnStop
-            // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Image = global::eda12131190311906.Properties.Resources.stop;
-            this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStop.Location = new System.Drawing.Point(326, 19);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(106, 37);
-            this.btnStop.TabIndex = 14;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.ButtonClick);
-            // 
-            // btnPause
-            // 
-            this.btnPause.Enabled = false;
-            this.btnPause.Image = global::eda12131190311906.Properties.Resources.pause;
-            this.btnPause.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPause.Location = new System.Drawing.Point(168, 19);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(106, 37);
-            this.btnPause.TabIndex = 13;
-            this.btnPause.Text = "Pause";
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.ButtonClick);
-            // 
-            // btnStart
-            // 
-            this.btnStart.Image = global::eda12131190311906.Properties.Resources.play;
-            this.btnStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStart.Location = new System.Drawing.Point(6, 19);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(106, 37);
-            this.btnStart.TabIndex = 12;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.ButtonClick);
             // 
             // lbTimeElapsed
             // 
@@ -665,6 +577,130 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Test";
             // 
+            // pnlTop
+            // 
+            this.pnlTop.Controls.Add(this.cblAlgorithms);
+            this.pnlTop.Controls.Add(this.rtbLog);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 25);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(438, 94);
+            this.pnlTop.TabIndex = 24;
+            // 
+            // rtbLog
+            // 
+            this.rtbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbLog.Location = new System.Drawing.Point(0, 0);
+            this.rtbLog.Name = "rtbLog";
+            this.rtbLog.ReadOnly = true;
+            this.rtbLog.Size = new System.Drawing.Size(438, 94);
+            this.rtbLog.TabIndex = 0;
+            this.rtbLog.Text = "";
+            // 
+            // btnStart
+            // 
+            this.btnStart.Image = global::eda12131190311906.Properties.Resources.play;
+            this.btnStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStart.Location = new System.Drawing.Point(6, 19);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(106, 37);
+            this.btnStart.TabIndex = 12;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnPause
+            // 
+            this.btnPause.Enabled = false;
+            this.btnPause.Image = global::eda12131190311906.Properties.Resources.pause;
+            this.btnPause.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPause.Location = new System.Drawing.Point(168, 19);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(106, 37);
+            this.btnPause.TabIndex = 13;
+            this.btnPause.Text = "Pause";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Enabled = false;
+            this.btnStop.Image = global::eda12131190311906.Properties.Resources.stop;
+            this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStop.Location = new System.Drawing.Point(326, 19);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(106, 37);
+            this.btnStop.TabIndex = 14;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnSaveReportsTo
+            // 
+            this.btnSaveReportsTo.Image = global::eda12131190311906.Properties.Resources.open_file;
+            this.btnSaveReportsTo.Location = new System.Drawing.Point(408, 44);
+            this.btnSaveReportsTo.Name = "btnSaveReportsTo";
+            this.btnSaveReportsTo.Size = new System.Drawing.Size(24, 22);
+            this.btnSaveReportsTo.TabIndex = 10;
+            this.btnSaveReportsTo.UseVisualStyleBackColor = true;
+            this.btnSaveReportsTo.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnSearchGnuplotExe
+            // 
+            this.btnSearchGnuplotExe.Image = global::eda12131190311906.Properties.Resources.open_file;
+            this.btnSearchGnuplotExe.Location = new System.Drawing.Point(408, 18);
+            this.btnSearchGnuplotExe.Name = "btnSearchGnuplotExe";
+            this.btnSearchGnuplotExe.Size = new System.Drawing.Size(24, 22);
+            this.btnSearchGnuplotExe.TabIndex = 6;
+            this.btnSearchGnuplotExe.UseVisualStyleBackColor = true;
+            this.btnSearchGnuplotExe.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnAlgorithmsSelectAll
+            // 
+            this.btnAlgorithmsSelectAll.Image = global::eda12131190311906.Properties.Resources.select_all;
+            this.btnAlgorithmsSelectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAlgorithmsSelectAll.Name = "btnAlgorithmsSelectAll";
+            this.btnAlgorithmsSelectAll.Size = new System.Drawing.Size(73, 22);
+            this.btnAlgorithmsSelectAll.Text = "Select &all";
+            this.btnAlgorithmsSelectAll.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnAlgorithmsDeselectAll
+            // 
+            this.btnAlgorithmsDeselectAll.Image = global::eda12131190311906.Properties.Resources.deselect;
+            this.btnAlgorithmsDeselectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAlgorithmsDeselectAll.Name = "btnAlgorithmsDeselectAll";
+            this.btnAlgorithmsDeselectAll.Size = new System.Drawing.Size(86, 22);
+            this.btnAlgorithmsDeselectAll.Text = "&Deselect all";
+            this.btnAlgorithmsDeselectAll.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnAlgorithmsInvert
+            // 
+            this.btnAlgorithmsInvert.Image = global::eda12131190311906.Properties.Resources.select_inverse;
+            this.btnAlgorithmsInvert.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAlgorithmsInvert.Name = "btnAlgorithmsInvert";
+            this.btnAlgorithmsInvert.Size = new System.Drawing.Size(107, 22);
+            this.btnAlgorithmsInvert.Text = "&Invert selection";
+            this.btnAlgorithmsInvert.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // btnViewLog
+            // 
+            this.btnViewLog.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnViewLog.CheckOnClick = true;
+            this.btnViewLog.Image = global::eda12131190311906.Properties.Resources.bug;
+            this.btnViewLog.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnViewLog.Name = "btnViewLog";
+            this.btnViewLog.Size = new System.Drawing.Size(75, 22);
+            this.btnViewLog.Text = "View &Log";
+            this.btnViewLog.Click += new System.EventHandler(this.ButtonClick);
+            // 
+            // bgWorker
+            // 
+            this.bgWorker.WorkerReportsProgress = true;
+            this.bgWorker.WorkerSupportsCancellation = true;
+            this.bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgWorkerDoWork);
+            this.bgWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BgWorkerProgressChanged);
+            this.bgWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerRunWorkerCompleted);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -677,7 +713,7 @@
             this.Controls.Add(this.lbProjectUrl);
             this.Controls.Add(this.pbLoad);
             this.Controls.Add(this.gbOptions);
-            this.Controls.Add(this.cblAlgorithms);
+            this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.tsAlgortimsBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -696,6 +732,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nmArrayInitialSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmNumberOfTests)).EndInit();
             this.gbControls.ResumeLayout(false);
+            this.pnlTop.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -748,6 +785,9 @@
         private System.Windows.Forms.NumericUpDown nmComputeAverageValueWith;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel pnlTop;
+        private System.Windows.Forms.RichTextBox rtbLog;
+        private System.Windows.Forms.ToolStripButton btnViewLog;
     }
 }
 
