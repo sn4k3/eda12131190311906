@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="                                                            Algorithms">
+    <Position X="11.793" Y="6.961" Height="0.291" Width="5.044" />
+  </Comment>
+  <Comment CommentText="      Logging System">
+    <Position X="2.253" Y="6.806" Height="0.291" Width="1.511" />
+  </Comment>
+  <Comment CommentText="        Report System">
+    <Position X="9.988" Y="6.958" Height="0.291" Width="1.527" />
+  </Comment>
+  <Comment CommentText="Application Base / Engine">
+    <Position X="0.5" Y="6.438" Height="0.291" Width="1.62" />
+  </Comment>
+  <Comment CommentText="                Application Settings">
+    <Position X="3.997" Y="7.025" Height="0.291" Width="2.288" />
+  </Comment>
+  <Comment CommentText="Native classes override">
+    <Position X="8.237" Y="6.438" Height="0.291" Width="1.527" />
+  </Comment>
+  <Comment CommentText="        System Utilities">
+    <Position X="6.465" Y="3.614" Height="0.291" Width="1.527" />
+  </Comment>
+  <Comment CommentText="									Estruturas de Dados e Algoritmos (EDA) - Project I - https://code.google.com/p/eda12131190311906/&#xD;&#xA;											Tiago Conceição Nº 11903 &amp; Gonçalo Lampreia Nº 11906">
+    <Position X="0.5" Y="0.5" Height="0.554" Width="16.301" />
+  </Comment>
+  <Class Name="eda12131190311906.AbortableBackgroundWorker">
+    <Position X="8.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAEAAAAACAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbortableBackgroundWorker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.ApplicationSettings">
+    <Position X="4" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAIQAAAAEQAgEAAAAAAIAABgIAREBSQADAAAAAAA=</HashCode>
+      <FileName>ApplicationSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Bubble">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bubble.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Bucket">
+    <Position X="13.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bucket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Comb">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Counting">
+    <Position X="15.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Counting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.FrmMain" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MIgACAEBNCcDChYkAACBIEBHSEEABJgAAAUCAAACSZA=</HashCode>
+      <FileName>FrmMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Heap">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAASQAAAAAAACAAACACAAAAAAQA=</HashCode>
+      <FileName>Heap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Insertion">
+    <Position X="11.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Insertion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Logging">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="eda12131190311906.Logging.LogEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Logging.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Delegate Name="eda12131190311906.Logging.LogEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Logging.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BABAAAAAAAAAAFAIAAAAAAAAAAgAAACEAAAAAAFAAAA=</HashCode>
+      <FileName>Logging.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Merge">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Merge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Program">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAIBACAAAAAABAABAAAAAAAAEAQAAAAABBAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Quick">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAQABAAAAAAAAAAAw=</HashCode>
+      <FileName>Quick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Radix">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Radix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Report">
+    <Position X="10" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="eda12131190311906.Report.PlotLine">
+        <TypeIdentifier>
+          <NewMemberFileName>Report.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAABAAAAACAQAAAAAAQAMAAAAAAAAIoA=</HashCode>
+      <FileName>Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Selection">
+    <Position X="15.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Selection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Shell">
+    <Position X="15.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.StopwatchEx" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAARAgAAAACAAAAAAABEAAAAAAAAAAAA=</HashCode>
+      <FileName>StopwatchEx.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="eda12131190311906.SystemHelper">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAEIAAAAAAAEAAAAAAAACAAAAAAAACAAAAAQAA=</HashCode>
+      <FileName>SystemHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eda12131190311906.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAggAACAAAAAAAAAABBEAAAAQCgAAAAAAAAAAAAIIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
