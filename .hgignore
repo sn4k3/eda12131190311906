@@ -4,3 +4,4 @@ bin/reports/*
 src/obj/*
 src/bin/Release/*
 old/bin/*
+sourcedoc/latex/*

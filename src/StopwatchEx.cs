@@ -1,7 +1,7 @@
 ﻿/**
  * Estruturas de Dados e Algoritmos (EDA) - Project I
- * Tiago Conceição Nº 11903
- * Gonçalo Lampreia Nº 11906
+ * Tiago Conceicao N 11903
+ * Goncalo Lampreia N 11906
  * https://code.google.com/p/eda12131190311906/
  */
 
