@@ -27,7 +27,7 @@ app:
 	$(CC) $(PROPERTIES) $(PROJFILE)
 	
 doxygen:
-	doxygen ../sourcedoc/
+	cd ../sourcedoc/; make
 
 rebuild: clean app
 

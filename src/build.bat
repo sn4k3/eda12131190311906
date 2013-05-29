@@ -13,6 +13,7 @@ echo #
 echo # Build and compile project
 echo #
 
+ping 1.1.1.1 -n 1 -w 3000 > nul
 
 if defined VS110COMNTOOLS (
    call "%VS110COMNTOOLS%\vsvars32.bat"
